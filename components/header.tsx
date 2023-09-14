@@ -1,12 +1,23 @@
 "use client"
 
 import React from 'react'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/react";
+import {
+    Link,
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    NavbarMenu,
+    NavbarMenuItem,
+    NavbarMenuToggle
+} from "@nextui-org/react";
 import AccountDropdown from './account-dropdown';
-import { cn } from '@/lib/utils';
-import { useSession } from 'next-auth/react';
+import {cn} from '@/lib/utils';
+import {useSession} from 'next-auth/react';
 import ThemeSwitcher from './theme-switcher';
-// import { AcmeLogo } from "./AcmeLogo.jsx";
+import logo from '@/public/logo.svg';
+import {Image} from "@nextui-org/image";
+import {default as NextLink} from "next/link";
 
 export default function Header() {
     const [navbarShadow, setNavbarShadow] = React.useState(false);
@@ -40,10 +51,7 @@ export default function Header() {
         }
     }, [])
 
-    const { data: session, status } = useSession()
-    // @ts-ignore
-    console.log(session?.user)
-
+    const {data: session, status} = useSession()
 
     return (
         <Navbar className={cn('backdrop-blur', navbarShadow && 'shadow')} onMenuOpenChange={setIsMenuOpen}>
@@ -52,45 +60,54 @@ export default function Header() {
                 className="sm:hidden"
             />
             <NavbarBrand>
-                {/* <AcmeLogo /> */}
-                <p className="font-bold text-inherit">ACME</p>
+                <NextLink href={'/'} className={"flex items-center gap-2"}>
+                    <Image src={logo.src} alt="Logo" className="w-10 h-10"/>
+                    <p className="font-bold text-inherit">SMLinks</p>
+                </NextLink>
             </NavbarBrand>
 
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 <NavbarItem>
-                    <Link color="foreground" href="#">
-                        Profile
-                    </Link>
+                    <NextLink href={`/profile/${session?.user.id}`} passHref legacyBehavior>
+                        <Link color="foreground">
+                            Profile
+                        </Link>
+                    </NextLink>
                 </NavbarItem>
                 <NavbarItem isActive>
-                    <Link href="#" aria-current="page" color="secondary">
-                        Customers
-                    </Link>
+                    <NextLink href={'#'} passHref legacyBehavior>
+                        <Link aria-current="page" color="secondary">
+                            Customers
+                        </Link>
+                    </NextLink>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link color="foreground" href="#">
-                        Integrations
-                    </Link>
+                    <NextLink href={'#'} passHref legacyBehavior>
+                        <Link color="foreground">
+                            Integrations
+                        </Link>
+                    </NextLink>
                 </NavbarItem>
             </NavbarContent>
 
             <NavbarContent as="div" justify="end">
-                <ThemeSwitcher />
-                <AccountDropdown />
+                <ThemeSwitcher/>
+                <AccountDropdown/>
             </NavbarContent>
             <NavbarMenu>
                 {menuItems.map((item, index) => (
                     <NavbarMenuItem key={`${item}-${index}`}>
-                        <Link
-                            color={
-                                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
-                            }
-                            className="w-full"
-                            href="#"
-                            size="lg"
-                        >
-                            {item}
-                        </Link>
+                        <NextLink href={'#'} passHref legacyBehavior>
+                            <Link
+                                color={
+                                    index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
+                                }
+                                className="w-full"
+                                size="lg"
+                            >
+                                {item}
+                            </Link>
+                        </NextLink>
                     </NavbarMenuItem>
                 ))}
             </NavbarMenu>

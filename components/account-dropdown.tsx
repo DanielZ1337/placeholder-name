@@ -1,13 +1,14 @@
 "use client"
 
-import { signIn, signOut, useSession } from "next-auth/react"
-import { Avatar } from '@nextui-org/avatar'
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/dropdown'
+import {signIn, signOut, useSession} from "next-auth/react"
+import {Avatar} from '@nextui-org/avatar'
+import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger} from '@nextui-org/dropdown'
 import React from 'react'
-import { Button } from "@nextui-org/react"
+import {Button} from "@nextui-org/react"
+import Link from "next/link";
 
 export default function AccountDropdown() {
-    const { data: session, status } = useSession()
+    const {data: session, status} = useSession()
     const [loading, setLoading] = React.useState(false)
 
     function handleLogin() {
@@ -19,11 +20,13 @@ export default function AccountDropdown() {
 
     if (status === "loading") return null
     if (status === "unauthenticated") {
-        return <Button color="secondary" onClick={handleLogin} disabled={loading} isLoading={loading}>{loading ? undefined : 'Sign In'}</Button>
+        return <Button color="secondary" onClick={handleLogin} disabled={loading}
+                       isLoading={loading}>{loading ? undefined : 'Sign In'}</Button>
     }
     if (!session) return null
     if (!session.user) return null
     if (!session.user.image) return null
+    if (!session.user.name) return null
 
     return (
         <Dropdown placement="bottom-end">
@@ -33,15 +36,17 @@ export default function AccountDropdown() {
                     as="button"
                     className="transition-transform"
                     color="secondary"
-                    name="Jason Hughes"
+                    name={session.user.name}
                     size="sm"
                     src={session.user.image}
                 />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
                 <DropdownItem key="profile" className="h-14 gap-2">
-                    <p className="font-semibold">Signed in as</p>
-                    <p className="font-semibold">{session.user.email}</p>
+                    <Link href="/profile">
+                        <p className="font-semibold">Signed in as</p>
+                        <p className="font-semibold">{session.user.email}</p>
+                    </Link>
                 </DropdownItem>
                 <DropdownItem key="settings">My Settings</DropdownItem>
                 <DropdownItem key="team_settings">Team Settings</DropdownItem>
