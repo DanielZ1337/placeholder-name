@@ -6,15 +6,6 @@ export async function generateStaticParams() {
     const users = await redisClient.smembers('users')
     return users.map(user => ({params: {id: user}}))
 }
-
-export async function getStaticPaths() {
-    const users = await redisClient.smembers('users')
-    return {
-        paths: users.map(user => ({params: {id: user}})),
-        fallback: true
-    }
-}
-
 export default async function Page({params}: { params: { id: string } }) {
     const user = await redisClient.get(`user:${params.id}`)
 
