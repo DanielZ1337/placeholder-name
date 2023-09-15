@@ -67,27 +67,31 @@ export default function Header() {
             </NavbarBrand>
 
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
-                <NavbarItem>
-                    <NextLink href={`/profile/${session?.user.id}`} passHref legacyBehavior>
-                        <Link color="foreground">
-                            Profile
-                        </Link>
-                    </NextLink>
-                </NavbarItem>
-                <NavbarItem isActive>
-                    <NextLink href={'#'} passHref legacyBehavior>
-                        <Link aria-current="page" color="secondary">
-                            Customers
-                        </Link>
-                    </NextLink>
-                </NavbarItem>
-                <NavbarItem>
-                    <NextLink href={'#'} passHref legacyBehavior>
-                        <Link color="foreground">
-                            Integrations
-                        </Link>
-                    </NextLink>
-                </NavbarItem>
+                {status === "authenticated" && (
+                    <>
+                        <NavbarItem>
+                            <NextLink href={`/profile/${session?.user.id}`} passHref legacyBehavior>
+                                <Link color="foreground">
+                                    Profile
+                                </Link>
+                            </NextLink>
+                        </NavbarItem>
+                        <NavbarItem isActive>
+                            <NextLink href={'#'} passHref legacyBehavior>
+                                <Link aria-current="page" color="secondary">
+                                    Customers
+                                </Link>
+                            </NextLink>
+                        </NavbarItem>
+                        <NavbarItem>
+                            <NextLink href={'#'} passHref legacyBehavior>
+                                <Link color="foreground">
+                                    Integrations
+                                </Link>
+                            </NextLink>
+                        </NavbarItem>
+                    </>
+                )}
             </NavbarContent>
 
             <NavbarContent as="div" justify="end">

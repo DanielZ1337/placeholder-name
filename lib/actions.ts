@@ -9,25 +9,22 @@ export async function addNewLink(formData: FormData) {
     const session = await getServerSession(authOptions)
 
     if (!session) {
-        console.log('No Session')
-        return
+        throw new Error('Not authenticated')
     }
 
     const id = session.user.id
 
     if (!formData.get('site') || !formData.get('link')) {
-        console.log('Invalid Data')
-        return
+        throw new Error('Missing data')
     }
 
     const data = {
-        [formData.get('site')!.toString()]: formData.get('link')!.toString()
+        [formData.get('site') as string]: formData.get('link') as string
     }
 
-    const isExists = await redisClient.hexists(`user:${id}:links`, formData.get('site')!.toString())
+    const isExists = await redisClient.hexists(`user:${id}:links`, formData.get('site') as string)
     if (isExists) {
-        console.log('Already Exists')
-        return
+        throw new Error('Link already exists')
     }
 
     await redisClient.hset(`user:${id}:links`, data).then(() => {
