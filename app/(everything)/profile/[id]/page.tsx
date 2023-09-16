@@ -4,35 +4,14 @@ import {User} from "next-auth";
 import {Card} from "@nextui-org/card";
 import {Avatar} from "@nextui-org/avatar";
 import SocialMediaLink from "@/components/social-media-link";
-import {
-    CodepenIcon,
-    Codesandbox,
-    Dribbble,
-    FacebookIcon,
-    GithubIcon,
-    GitlabIcon,
-    InstagramIcon,
-    LinkedinIcon,
-    TwitchIcon,
-    TwitterIcon,
-    YoutubeIcon
-} from "lucide-react";
+import {GithubIcon, LinkedinIcon} from "lucide-react";
 import {IoLogoGoogle} from "react-icons/io";
-import {BiLogoHeroku, BiLogoNetlify, BiLogoTiktok} from "react-icons/bi";
-import {BsBehance, BsReddit, BsSnapchat} from "react-icons/bs";
-import {FaAws, FaMedium, FaPinterest} from "react-icons/fa";
-import {PiDevToLogo} from "react-icons/pi";
-import {FaHashnode} from "react-icons/fa6";
-import {SiGlitch, SiMicrosoftazure, SiProducthunt, SiReplit, SiStackoverflow} from "react-icons/si";
-import {CgBitbucket} from "react-icons/cg";
-import {RxVercelLogo} from "react-icons/rx";
-import {DiFirebase} from "react-icons/di";
 import {sites} from "@/lib/link-site-providers";
 
-export async function generateStaticParams() {
+/*export async function generateStaticParams() {
     const users = await redisClient.smembers('users')
     return users.map(user => ({params: {id: user}}))
-}
+}*/
 
 const socialMediaLinks = [
     {
