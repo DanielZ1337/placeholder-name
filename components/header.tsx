@@ -45,7 +45,7 @@ export default function Header() {
 
     const menuItems = [
         {
-            name: "Profile",
+            name: "Edit Profile",
             href: "/profile"
         },
         {

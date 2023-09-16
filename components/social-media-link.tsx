@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {cn} from "@/lib/utils";
-import {useState} from "react";
+import React, {useState} from "react";
 import {BsArrowRight} from "react-icons/bs";
 
 function HEXtoHSL(hex: string) {
@@ -40,6 +40,11 @@ function HEXtoHSL(hex: string) {
     return {h, s, l};
 }
 
+function shouldTextBeInverted(color: string) {
+    const {h, s, l} = HEXtoHSL(color)
+    return l > 70 || s < 30 || h > 200 && h < 300
+}
+
 export default function SocialMediaLink({href, color, icon, children, className, ...props}: {
     href: string
     color?: string
@@ -56,6 +61,7 @@ export default function SocialMediaLink({href, color, icon, children, className,
               rel={"noopener noreferrer"} target={"_blank"}
               style={{
                   backgroundColor: HEXtoHSL(color!).h < 0 ? color : `hsl(${HEXtoHSL(color!).h}, ${isHover ? HEXtoHSL(color!).s + 10 : HEXtoHSL(color!).s}%, ${isHover ? HEXtoHSL(color!).l - 10 : HEXtoHSL(color!).l}%, ${isHover ? 1 : 0.9})`,
+                  color: shouldTextBeInverted(color!) ? 'white' : 'black',
                   transition: 'background-color 0.2s ease-in-out',
               }}
               {...props}
@@ -63,10 +69,11 @@ export default function SocialMediaLink({href, color, icon, children, className,
               onMouseLeave={() => setIsHover(false)}
         >
             <span className={'flex gap-2'}>
-                <span className={"w-5 h-5"}>{icon}<span className={'sr-only'}>{children}</span></span>
+                <span className={"w-6 h-6"}>{React.cloneElement(icon!, {height: '', width: ''})}<span
+                    className={'sr-only'}>{children}</span></span>
                 <span>{children}</span>
             </span>
-            <BsArrowRight className={'w-5 h-5'}/>
+            <BsArrowRight className={cn('w-6 h-6', isHover ? 'translate-x-1 transition-transform duration-200 ease-in-out' : 'translate-x-0 transition-transform duration-200 ease-in-out')}/>
         </Link>
     )
 }

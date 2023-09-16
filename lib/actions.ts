@@ -4,6 +4,7 @@ import {redisClient} from "@/lib/redis";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
 import {toast} from "@/components/ui/use-toast";
+import {revalidatePath} from "next/cache";
 
 export async function addNewLink(formData: FormData) {
     const session = await getServerSession(authOptions)
@@ -30,4 +31,6 @@ export async function addNewLink(formData: FormData) {
     await redisClient.hset(`user:${id}:links`, data).then(() => {
         console.log('Added')
     })
+
+    revalidatePath(`/profile/${id}`)
 }
