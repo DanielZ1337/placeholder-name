@@ -1,29 +1,15 @@
 "use client"
 
-import {signIn, signOut, useSession} from "next-auth/react"
+import {signOut, useSession} from "next-auth/react"
 import {Avatar} from '@nextui-org/avatar'
 import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger} from '@nextui-org/dropdown'
 import React from 'react'
-import {Button} from "@nextui-org/react"
 import {useRouter} from "next/navigation";
 
 export default function AccountDropdown() {
     const {data: session, status} = useSession()
-    const [loading, setLoading] = React.useState(false)
     const router = useRouter()
 
-    function handleLogin() {
-        setLoading(true)
-        signIn('github').then(() => {
-            setLoading(false)
-        })
-    }
-
-    if (status === "loading") return null
-    if (status === "unauthenticated") {
-        return <Button color="secondary" onClick={handleLogin} disabled={loading}
-                       isLoading={loading}>{loading ? undefined : 'Sign In'}</Button>
-    }
     if (!session) return null
     if (!session.user) return null
     if (!session.user.image) return null

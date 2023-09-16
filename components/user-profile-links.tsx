@@ -6,7 +6,11 @@ import {redisClient} from "@/lib/redis";
 export default async function UserProfileLinks({id}: { id: string }) {
     const links = await redisClient.hgetall(`user:${id}:links`) as Record<string, string>
     if (!links) {
-        throw new Error('Links Not Found')
+        return (
+            <div className={"flex flex-col items-center gap-2"}>
+                <h6 className={"text-shdcnmuted-shdcnforeground"}>No Links</h6>
+            </div>
+        )
     }
     return (
         <div className={"flex gap-2 flex-col"}>

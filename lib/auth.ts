@@ -2,15 +2,21 @@ import type {NextAuthOptions} from 'next-auth'
 import GitHub from "next-auth/providers/github"
 import {redisClient} from '@/lib/redis'
 import {UpstashRedisAdapter} from "@next-auth/upstash-redis-adapter";
+import Google from "next-auth/providers/google";
 
-const {GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET} = process.env
+const {
+    GITHUB_CLIENT_ID,
+    GITHUB_CLIENT_SECRET,
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET
+} = process.env
 
-if (!GITHUB_CLIENT_ID) {
-    throw new Error("Environment variable GITHUB_CLIENT_ID is missing.")
+if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
+    throw new Error("Environment variables GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET are missing.")
 }
 
-if (!GITHUB_CLIENT_SECRET) {
-    throw new Error("Environment variable GITHUB_CLIENT_SECRET is missing.")
+if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
+    throw new Error("Environment variables GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET are missing.")
 }
 
 export const authOptions: NextAuthOptions = {
@@ -30,7 +36,11 @@ export const authOptions: NextAuthOptions = {
         GitHub({
             clientId: GITHUB_CLIENT_ID,
             clientSecret: GITHUB_CLIENT_SECRET,
-        })
+        }),
+        Google({
+            clientId: GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRET,
+        }),
     ],
     callbacks: {
         async session({session, token, user}) {

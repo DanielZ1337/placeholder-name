@@ -1,50 +1,45 @@
-/*
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger
-} from "@/components/ui/dialog";
-import {Button} from "@/components/ui/button";
-import {AuthButton} from "@/components/layout/ui/login/auth-button";
-import {OAuthProviders} from "@/lib/o-auth-providers";
-import EmailLoginForm from "@/components/login/login-page/email-login-form";
+import {Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure} from "@nextui-org/react";
 import React from "react";
+import {AuthButton} from "@/components/login/auth-button";
+import {oAuthProviders} from "@/lib/o-auth-providers";
 
-export default async function LoginModal() {
+export default function LoginModal() {
+    const {isOpen, onOpen, onClose} = useDisclosure();
+    const [loading, setLoading] = React.useState(false)
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
-                    Login
-                </Button>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle className={"text-center"}>Login</DialogTitle>
-                    <DialogDescription className={"flex flex-col gap-4"}>
-                        <EmailLoginForm/>
-                        <div className={"flex justify-center items-center gap-4"}>
-                            <div className="h-1 w-1/2 bg-muted-foreground rounded-full my-4"/>
-                            <div className="text-center">
-                                <p className="text-sm text-muted-foreground">OR</p>
-                            </div>
-                            <div className="h-1 w-1/2 bg-muted-foreground rounded-full my-4"/>
-                        </div>
-                        <div className="grid w-full items-center gap-4">
-                            {OAuthProviders.map((provider) => (
-                                <AuthButton key={provider.provider} provider={provider.provider}
-                                            icon={provider.icon}>Login with {provider.name}</AuthButton>
-                            ))}
-                        </div>
-                    </DialogDescription>
-                </DialogHeader>
-            </DialogContent>
-        </Dialog>
+        <>
+            <Button color="secondary" disabled={loading}
+                    isLoading={loading}
+                    onClick={onOpen}
+            >
+                {loading ? undefined : 'Sign In'}
+            </Button>
+            <Modal backdrop={'blur'} isOpen={isOpen} onClose={onClose}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className={'text-center'}>Sign In</ModalHeader>
+                            <ModalBody>
+                                <p className={'text-shdcnmuted-shdcnforeground'}>
+                                    Sign in to access your dashboard and manage your links.
+                                </p>
+                                <div className="grid w-full items-center gap-4">
+                                    {oAuthProviders.map((provider) => (
+                                        <AuthButton className={"py-6"} key={provider.provider} provider={provider.provider}
+                                                    icon={provider.icon} color={"secondary"} variant={"flat"}>Login with {provider.name}</AuthButton>
+                                    ))}
+                                </div>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" variant="light" onPress={onClose}>
+                                    Close
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
+        </>
     )
 }
-
-*/

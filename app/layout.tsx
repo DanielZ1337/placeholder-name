@@ -6,6 +6,7 @@ import {cn} from '../lib/utils'
 import {siteConfig} from "@/lib/site";
 import {Toaster} from "@/components/ui/toaster";
 import {Suspense} from "react";
+import {Spinner} from "@nextui-org/spinner";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -113,14 +114,14 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-        <Suspense fallback={<div>Loading...</div>}>
-            <body className={cn(inter.className, 'min-h-[100dvh] flex-1')}>
-            <Providers>
+        <body className={cn(inter.className, 'min-h-[100dvh] flex-1')}>
+        <Providers>
+            <Suspense fallback={<Spinner size={"lg"} color={"current"} className={"absolute inset-0 m-auto"}/>}>
                 {children}
-                <Toaster/>
-            </Providers>
-            </body>
-        </Suspense>
+            </Suspense>
+            <Toaster/>
+        </Providers>
+        </body>
         </html>
     )
 }

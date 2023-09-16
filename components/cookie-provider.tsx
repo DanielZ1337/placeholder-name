@@ -59,7 +59,7 @@ export default function CookieProvider({children}: { children: React.ReactNode }
             }
 
         }
-    }, [mounted])
+    }, [mounted, onOpen])
     if (!mounted) return null
 
 

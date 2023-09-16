@@ -5,7 +5,7 @@ import {Select, SelectItem} from "@nextui-org/react";
 import {sites} from "@/lib/link-site-providers";
 
 
-export default function LinkProviderSelector({setNewLinkProvider}: { setNewLinkProvider: (value: string) => void }) {
+export default function LinkProviderSelector({setNewLinkProvider}: { setNewLinkProvider: React.Dispatch<React.SetStateAction<string>> }) {
 
     return (
         <Select

@@ -21,6 +21,7 @@ import logo from '@/public/logo.svg';
 import {Image} from "@nextui-org/image";
 import {default as NextLink} from "next/link";
 import {usePathname} from "next/navigation";
+import LoginModal from "@/components/login/login-modal/login-modal";
 
 export default function Header() {
     const [navbarShadow, setNavbarShadow] = React.useState(false);
@@ -95,7 +96,12 @@ export default function Header() {
 
             <NavbarContent as="div" justify="end">
                 <ThemeSwitcher/>
-                <AccountDropdown/>
+                {status === "unauthenticated" && (
+                    <LoginModal/>
+                )}
+                {status === "authenticated" && (
+                    <AccountDropdown/>
+                )}
             </NavbarContent>
             <NavbarMenu className="sm:hidden w-full">
                 <ScrollShadow hideScrollBar className="w-full h-[100dvh]">

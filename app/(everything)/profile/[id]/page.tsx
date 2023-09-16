@@ -3,35 +3,14 @@ import React, {Suspense} from 'react'
 import {User} from "next-auth";
 import {Card} from "@nextui-org/card";
 import {Avatar} from "@nextui-org/avatar";
-import SocialMediaLink from "@/components/social-media-link";
-import {GithubIcon, LinkedinIcon} from "lucide-react";
-import {IoLogoGoogle} from "react-icons/io";
-import {sites} from "@/lib/link-site-providers";
 import UserProfileLinks from "@/components/user-profile-links";
-import {Skeleton} from "@nextui-org/react";
 
-/*export async function generateStaticParams() {
+export const dynamic = 'force-static'
+
+export async function generateStaticParams() {
     const users = await redisClient.smembers('users')
     return users.map(user => ({params: {id: user}}))
-}*/
-
-const socialMediaLinks = [
-    {
-        name: "Github",
-        url: "https://github.com/brandonharrisondev",
-        icon: <IoLogoGoogle/>
-    },
-    {
-        name: "Twitter",
-        url: "https://twitter.com/brandonharrison",
-        icon: <GithubIcon/>
-    },
-    {
-        name: "LinkedIn",
-        url: "https://linkedin.com/in/brandonharrisondev",
-        icon: <LinkedinIcon/>
-    },
-]
+}
 
 export default async function Page({params}: { params: { id: string } }) {
     const user = await redisClient.get(`user:${params.id}`) as User
