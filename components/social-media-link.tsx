@@ -57,7 +57,7 @@ export default function SocialMediaLink({href, color, icon, children, className,
 
     return (
         <Link href={href}
-              className={cn('flex gap-2 items-center justify-between px-10 py-3 rounded-md text-sm font-medium text-white lg:px-4 lg:py-2 lg:text-base md:px-6 md:py-2 md:text-base', className)}
+              className={cn('flex gap-2 items-center justify-between px-10 py-3 rounded-md text-sm font-medium text-white lg:px-4 lg:py-2 lg:text-base md:px-6 md:py-3 md:text-base sm:px-8 sm:py-4 sm:text-base transition-all duration-200 ease-in-out', className)}
               rel={"noopener noreferrer"} target={"_blank"}
               style={{
                   backgroundColor: HEXtoHSL(color!).h < 0 ? color : `hsl(${HEXtoHSL(color!).h}, ${isHover ? HEXtoHSL(color!).s + 10 : HEXtoHSL(color!).s}%, ${isHover ? HEXtoHSL(color!).l - 10 : HEXtoHSL(color!).l}%, ${isHover ? 1 : 0.9})`,
@@ -68,10 +68,10 @@ export default function SocialMediaLink({href, color, icon, children, className,
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
         >
-            <span className={'flex gap-2'}>
+            <span className={'flex gap-2 items-center justify-center'}>
                 <span className={"w-6 h-6"}>{React.cloneElement(icon!, {height: '', width: ''})}<span
                     className={'sr-only'}>{children}</span></span>
-                <span>{children}</span>
+                <span className={"sm:text-lg text-sm lg:text-lg lg:font-medium xl:text-base"}>{children}</span>
             </span>
             <BsArrowRight className={cn('w-6 h-6', isHover ? 'translate-x-1 transition-transform duration-200 ease-in-out' : 'translate-x-0 transition-transform duration-200 ease-in-out')}/>
         </Link>

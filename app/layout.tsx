@@ -2,11 +2,10 @@ import Providers from '@/components/providers'
 import './globals.css'
 import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 import {cn} from '../lib/utils'
 import {siteConfig} from "@/lib/site";
 import {Toaster} from "@/components/ui/toaster";
+import {Suspense} from "react";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -114,12 +113,14 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-        <body className={cn(inter.className, 'min-h-[100dvh] flex-1')}>
-        <Providers>
-            {children}
-            <Toaster/>
-        </Providers>
-        </body>
+        <Suspense fallback={<div>Loading...</div>}>
+            <body className={cn(inter.className, 'min-h-[100dvh] flex-1')}>
+            <Providers>
+                {children}
+                <Toaster/>
+            </Providers>
+            </body>
+        </Suspense>
         </html>
     )
 }
