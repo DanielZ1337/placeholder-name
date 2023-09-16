@@ -10,6 +10,8 @@ export async function generateStaticParams() {
     return users.map(user => ({params: {id: user}}))
 }
 
+export const revalidate = 60
+
 export default async function Page({params}: { params: { id: string } }) {
     const user = await redisClient.get(`user:${params.id}`) as User
 
