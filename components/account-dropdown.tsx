@@ -5,11 +5,12 @@ import {Avatar} from '@nextui-org/avatar'
 import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger} from '@nextui-org/dropdown'
 import React from 'react'
 import {Button} from "@nextui-org/react"
-import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 export default function AccountDropdown() {
     const {data: session, status} = useSession()
     const [loading, setLoading] = React.useState(false)
+    const router = useRouter()
 
     function handleLogin() {
         setLoading(true)
@@ -42,26 +43,18 @@ export default function AccountDropdown() {
                 />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
-                <DropdownItem key="profile" className="h-14 gap-2">
-                    <Link href="/profile">
-                        <p className="font-semibold">Signed in as</p>
-                        <p className="font-semibold">{session.user.email}</p>
-                    </Link>
+                <DropdownItem key="profile" className="h-14 gap-2" onClick={() => router.push('/profile')}>
+                    <p className="font-semibold">Signed in as</p>
+                    <p className="font-semibold">{session.user.email}</p>
                 </DropdownItem>
-                <DropdownItem key="dashboard">
-                    <Link href="/dashboard">
-                        Dashboard
-                    </Link>
+                <DropdownItem key="dashboard" onClick={() => router.push('/dashboard')}>
+                    Dashboard
                 </DropdownItem>
-                <DropdownItem key="analytics">
-                    <Link href="/analytics">
-                        Analytics
-                    </Link>
+                <DropdownItem key="analytics" onClick={() => router.push('/analytics')}>
+                    Analytics
                 </DropdownItem>
-                <DropdownItem key="settings" showDivider>
-                    <Link href="/settings">
-                        Settings
-                    </Link>
+                <DropdownItem key="settings" onClick={() => router.push('/settings')} showDivider>
+                    Settings
                 </DropdownItem>
                 <DropdownItem key="logout" color="danger" onClick={() => signOut()}>
                     Log Out

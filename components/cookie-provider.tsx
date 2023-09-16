@@ -13,17 +13,13 @@ type CookieContextType = {
     saveCookiePermissions: () => void
 }
 
-export type CookiePermissions = {
-    necessary: boolean,
-    preferences: boolean,
-    statistics: boolean
-}
-
 export const DefaultCookiePermissions = {
     necessary: true,
-    preferences: false,
-    statistics: false
-} as CookiePermissions
+    preferences: true,
+    statistics: true
+}
+
+export type CookiePermissions = typeof DefaultCookiePermissions
 
 export const useCookieContext = () => useContext(CookieContext)
 
@@ -40,7 +36,6 @@ export const saveCookiePermissions = () => {
 
 function getCookiePermissions() {
     const currentCookiePermissions = localStorage.getItem('cookiePermissions')
-
 
     if (!currentCookiePermissions) {
         return

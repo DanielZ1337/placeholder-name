@@ -50,7 +50,11 @@ export default function Page() {
     )
 }
 
-function FeatureSection({iconSvg, title, description}: { iconSvg: React.ReactNode, title: string, description: string }) {
+function FeatureSection({iconSvg, title, description}: {
+    iconSvg: React.ReactNode,
+    title: string,
+    description: string
+}) {
     return (
         <div className="flex flex-col items-center space-y-2 border-gray-800 p-4 rounded-lg sm:p-6 lg:p-8 ">
             <div className="p-3 rounded-full bg-secondary-100 text-secondary">

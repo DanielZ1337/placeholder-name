@@ -62,9 +62,9 @@ export default function SocialMediaLink({href, color, icon, children, className,
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
         >
-            <span className={'flex gap-2 items-center'}>
+            <span className={'flex gap-2'}>
                 <span className={"w-5 h-5"}>{icon}<span className={'sr-only'}>{children}</span></span>
-            <span>{children}</span>
+                <span>{children}</span>
             </span>
             <BsArrowRight className={'w-5 h-5'}/>
         </Link>

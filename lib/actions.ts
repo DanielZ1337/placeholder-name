@@ -19,7 +19,7 @@ export async function addNewLink(formData: FormData) {
     }
 
     const data = {
-        [formData.get('link') as string]:[formData.get('site') as string]
+        [(formData.get('link') as string).toLowerCase()]:(formData.get('site') as string).toLowerCase()
     }
 
     const isExists = await redisClient.hexists(`user:${id}:links`, formData.get('site') as string)
