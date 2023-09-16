@@ -66,10 +66,12 @@ export default function Header() {
 
     return (
         <Navbar className={cn('backdrop-blur', navbarShadow && 'shadow')} onMenuOpenChange={setIsMenuOpen}>
-            <NavbarMenuToggle
-                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                className="sm:hidden"
-            />
+            {status === "authenticated" && (
+                <NavbarMenuToggle
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    className="sm:hidden"
+                />
+            )}
             <NavbarBrand>
                 <NextLink href={'/'} className={"flex items-center gap-2"}>
                     <Image src={logo.src} alt="Logo" className="w-10 h-10"/>
@@ -95,32 +97,30 @@ export default function Header() {
                 <ThemeSwitcher/>
                 <AccountDropdown/>
             </NavbarContent>
-            {status === "authenticated" && (
-                <NavbarMenu className="sm:hidden w-full">
-                    <ScrollShadow hideScrollBar className="w-full h-[100dvh]">
-                        {menuItems.map((item, index) => (
-                            <NavbarMenuItem key={`${item.href}-${index}`} className={"p-4"}>
-                                <NextLink href={item.href}>
-                                    <Link
-                                        aria-current={isCurrentPage(pathname, item.href) && "page"}
-                                        className={cn("w-full group")}
+            <NavbarMenu className="sm:hidden w-full">
+                <ScrollShadow hideScrollBar className="w-full h-[100dvh]">
+                    {menuItems.map((item, index) => (
+                        <NavbarMenuItem key={`${item.href}-${index}`} className={"p-4"}>
+                            <NextLink href={item.href}>
+                                <Link
+                                    aria-current={isCurrentPage(pathname, item.href) && "page"}
+                                    className={cn("w-full group")}
+                                    size="lg"
+                                >
+                                    <Button
+                                        color={"secondary"}
+                                        variant={isCurrentPage(pathname, item.href) ? "solid" : "faded"}
+                                        className={cn("w-full active:shadow-secondary-200/20 active:scale-90 active:shadow-none transition-transform duration-100 ease-in-out group-active:text-opacity-75", isCurrentPage(pathname, item.href) && "text-opacity-100", isCurrentPage(pathname, item.href) ? "text-white" : "text-foreground")}
                                         size="lg"
                                     >
-                                        <Button
-                                            color={"secondary"}
-                                            variant={isCurrentPage(pathname, item.href) ? "solid" : "faded"}
-                                            className={cn("w-full active:shadow-secondary-200/20 active:scale-90 active:shadow-none transition-transform duration-100 ease-in-out group-active:text-opacity-75", isCurrentPage(pathname, item.href) && "text-opacity-100", isCurrentPage(pathname, item.href) ? "text-white" : "text-foreground")}
-                                            size="lg"
-                                        >
-                                            {item.name}
-                                        </Button>
-                                    </Link>
-                                </NextLink>
-                            </NavbarMenuItem>
-                        ))}
-                    </ScrollShadow>
-                </NavbarMenu>
-            )}
+                                        {item.name}
+                                    </Button>
+                                </Link>
+                            </NextLink>
+                        </NavbarMenuItem>
+                    ))}
+                </ScrollShadow>
+            </NavbarMenu>
         </Navbar>
     );
 }
