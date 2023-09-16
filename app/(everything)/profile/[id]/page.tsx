@@ -5,8 +5,6 @@ import {Card} from "@nextui-org/card";
 import {Avatar} from "@nextui-org/avatar";
 import UserProfileLinks from "@/components/user-profile-links";
 
-export const dynamic = 'force-static'
-
 export async function generateStaticParams() {
     const users = await redisClient.smembers('users')
     return users.map(user => ({params: {id: user}}))
