@@ -32,5 +32,5 @@ export async function addNewLink(formData: FormData) {
         console.log('Added')
     })
 
-    revalidatePath(`/profile/${id}`)
+    // revalidatePath(`/profile/${id}`)
 }

@@ -5,12 +5,15 @@ import {Card} from "@nextui-org/card";
 import {Avatar} from "@nextui-org/avatar";
 import UserProfileLinks from "@/components/user-profile-links";
 
-export async function generateStaticParams() {
-    const users = await redisClient.smembers('users')
+/*export async function generateStaticParams() {
+    const newClient = Redis.fromEnv({
+        cache: "reload",
+    })
+    const users = await newClient.smembers('users')
     return users.map(user => ({params: {id: user}}))
-}
+}*/
 
-export const revalidate = 60
+// export const revalidate = 60
 
 export default async function Page({params}: { params: { id: string } }) {
     const user = await redisClient.get(`user:${params.id}`) as User
