@@ -95,30 +95,32 @@ export default function Header() {
                 <ThemeSwitcher/>
                 <AccountDropdown/>
             </NavbarContent>
-            <NavbarMenu className="sm:hidden w-full">
-                <ScrollShadow hideScrollBar className="w-full h-[100dvh]">
-                    {menuItems.map((item, index) => (
-                        <NavbarMenuItem key={`${item.href}-${index}`} className={"p-4"}>
-                            <NextLink href={item.href}>
-                                <Link
-                                    aria-current={isCurrentPage(pathname, item.href) && "page"}
-                                    className={cn("w-full group")}
-                                    size="lg"
-                                >
-                                    <Button
-                                        color={"secondary"}
-                                        variant={isCurrentPage(pathname, item.href) ? "solid" : "faded"}
-                                        className={cn("w-full active:shadow-secondary-200/20 active:scale-90 active:shadow-none transition-transform duration-100 ease-in-out group-active:text-opacity-75", isCurrentPage(pathname, item.href) && "text-opacity-100", isCurrentPage(pathname, item.href) ? "text-white" : "text-foreground")}
+            {status === "authenticated" && (
+                <NavbarMenu className="sm:hidden w-full">
+                    <ScrollShadow hideScrollBar className="w-full h-[100dvh]">
+                        {menuItems.map((item, index) => (
+                            <NavbarMenuItem key={`${item.href}-${index}`} className={"p-4"}>
+                                <NextLink href={item.href}>
+                                    <Link
+                                        aria-current={isCurrentPage(pathname, item.href) && "page"}
+                                        className={cn("w-full group")}
                                         size="lg"
                                     >
-                                        {item.name}
-                                    </Button>
-                                </Link>
-                            </NextLink>
-                        </NavbarMenuItem>
-                    ))}
-                </ScrollShadow>
-            </NavbarMenu>
+                                        <Button
+                                            color={"secondary"}
+                                            variant={isCurrentPage(pathname, item.href) ? "solid" : "faded"}
+                                            className={cn("w-full active:shadow-secondary-200/20 active:scale-90 active:shadow-none transition-transform duration-100 ease-in-out group-active:text-opacity-75", isCurrentPage(pathname, item.href) && "text-opacity-100", isCurrentPage(pathname, item.href) ? "text-white" : "text-foreground")}
+                                            size="lg"
+                                        >
+                                            {item.name}
+                                        </Button>
+                                    </Link>
+                                </NextLink>
+                            </NavbarMenuItem>
+                        ))}
+                    </ScrollShadow>
+                </NavbarMenu>
+            )}
         </Navbar>
     );
 }
