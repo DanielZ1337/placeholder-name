@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {
+    Button,
     Link,
     Navbar,
     NavbarBrand,
@@ -9,7 +10,8 @@ import {
     NavbarItem,
     NavbarMenu,
     NavbarMenuItem,
-    NavbarMenuToggle
+    NavbarMenuToggle,
+    ScrollShadow
 } from "@nextui-org/react";
 import AccountDropdown from './account-dropdown';
 import {cn} from '@/lib/utils';
@@ -18,23 +20,11 @@ import ThemeSwitcher from './theme-switcher';
 import logo from '@/public/logo.svg';
 import {Image} from "@nextui-org/image";
 import {default as NextLink} from "next/link";
+import {usePathname} from "next/navigation";
 
 export default function Header() {
     const [navbarShadow, setNavbarShadow] = React.useState(false);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-    const menuItems = [
-        "Profile",
-        "Dashboard",
-        "Activity",
-        "Analytics",
-        "System",
-        "Deployments",
-        "My Settings",
-        "Team Settings",
-        "Help & Feedback",
-        "Log Out",
-    ];
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -53,6 +43,23 @@ export default function Header() {
 
     const {data: session, status} = useSession()
 
+    const menuItems = [
+        {
+            name: "Profile",
+            href: "/profile"
+        },
+        {
+            name: "Preview",
+            href: `/preview/${session?.user?.id}`,
+        },
+        {
+            name: "Settings",
+            href: "/settings"
+        }
+    ]
+
+    const pathname = usePathname()
+
     return (
         <Navbar className={cn('backdrop-blur', navbarShadow && 'shadow')} onMenuOpenChange={setIsMenuOpen}>
             <NavbarMenuToggle
@@ -62,60 +69,57 @@ export default function Header() {
             <NavbarBrand>
                 <NextLink href={'/'} className={"flex items-center gap-2"}>
                     <Image src={logo.src} alt="Logo" className="w-10 h-10"/>
-                    <p className="font-bold text-inherit">SMLinks</p>
+                    <p className="font-bold text-inherit text-xl">SMLinks</p>
                 </NextLink>
             </NavbarBrand>
 
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
                 {status === "authenticated" && (
-                    <>
-                        <NavbarItem>
-                            <NextLink href={`/profile/${session?.user.id}`} passHref legacyBehavior>
-                                <Link color="foreground">
-                                    Profile
+                    menuItems.map((item, index) => (
+                        <NavbarItem isActive={pathname === item.href} key={`${item.href}-${index}`}>
+                            <NextLink href={item.href} passHref legacyBehavior>
+                                <Link aria-current={isCurrentPage(pathname, item.href) && "page"}
+                                      color={isCurrentPage(pathname, item.href) ? "secondary" : "foreground"}>
+                                    {item.name}
                                 </Link>
                             </NextLink>
                         </NavbarItem>
-                        <NavbarItem isActive>
-                            <NextLink href={'#'} passHref legacyBehavior>
-                                <Link aria-current="page" color="secondary">
-                                    Customers
-                                </Link>
-                            </NextLink>
-                        </NavbarItem>
-                        <NavbarItem>
-                            <NextLink href={'#'} passHref legacyBehavior>
-                                <Link color="foreground">
-                                    Integrations
-                                </Link>
-                            </NextLink>
-                        </NavbarItem>
-                    </>
-                )}
+                    )))}
             </NavbarContent>
 
             <NavbarContent as="div" justify="end">
                 <ThemeSwitcher/>
                 <AccountDropdown/>
             </NavbarContent>
-            <NavbarMenu>
-                {menuItems.map((item, index) => (
-                    <NavbarMenuItem key={`${item}-${index}`}>
-                        <NextLink href={'#'} passHref legacyBehavior>
-                            <Link
-                                color={
-                                    index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
-                                }
-                                className="w-full"
-                                size="lg"
-                            >
-                                {item}
-                            </Link>
-                        </NextLink>
-                    </NavbarMenuItem>
-                ))}
+            <NavbarMenu className="sm:hidden w-full">
+                <ScrollShadow hideScrollBar className="w-full h-[100dvh]">
+                    {menuItems.map((item, index) => (
+                        <NavbarMenuItem key={`${item.href}-${index}`} className={"p-4"}>
+                            <NextLink href={item.href}>
+                                <Link
+                                    aria-current={isCurrentPage(pathname, item.href) && "page"}
+                                    className={cn("w-full group")}
+                                    size="lg"
+                                >
+                                    <Button
+                                        color={"secondary"}
+                                        variant={isCurrentPage(pathname, item.href) ? "solid" : "faded"}
+                                        className={cn("w-full active:shadow-secondary-200/20 active:scale-90 active:shadow-none transition-transform duration-100 ease-in-out group-active:text-opacity-75", isCurrentPage(pathname, item.href) && "text-opacity-100", isCurrentPage(pathname, item.href) ? "text-white" : "text-foreground")}
+                                        size="lg"
+                                    >
+                                        {item.name}
+                                    </Button>
+                                </Link>
+                            </NextLink>
+                        </NavbarMenuItem>
+                    ))}
+                </ScrollShadow>
             </NavbarMenu>
         </Navbar>
     );
+}
+
+function isCurrentPage(pathname: string, href: string) {
+    return pathname === href
 }
 

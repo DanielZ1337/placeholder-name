@@ -48,12 +48,21 @@ export default function AccountDropdown() {
                         <p className="font-semibold">{session.user.email}</p>
                     </Link>
                 </DropdownItem>
-                <DropdownItem key="settings">My Settings</DropdownItem>
-                <DropdownItem key="team_settings">Team Settings</DropdownItem>
-                <DropdownItem key="analytics">Analytics</DropdownItem>
-                <DropdownItem key="system">System</DropdownItem>
-                <DropdownItem key="configurations">Configurations</DropdownItem>
-                <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+                <DropdownItem key="dashboard">
+                    <Link href="/dashboard">
+                        Dashboard
+                    </Link>
+                </DropdownItem>
+                <DropdownItem key="analytics">
+                    <Link href="/analytics">
+                        Analytics
+                    </Link>
+                </DropdownItem>
+                <DropdownItem key="settings" showDivider>
+                    <Link href="/settings">
+                        Settings
+                    </Link>
+                </DropdownItem>
                 <DropdownItem key="logout" color="danger" onClick={() => signOut()}>
                     Log Out
                 </DropdownItem>
