@@ -11,10 +11,10 @@ export default async function Page() {
 
     return (
         <div className={"flex flex-col items-center"}>
-            <h1>Analytics</h1>
-            <h2>{session?.user?.name}</h2>
-            <h6>{session?.user?.email}</h6>
-            <img src={session?.user?.image!} alt="Profile Image"/>
+            <h1>Settings</h1>
+            <h2>{session.user.name}</h2>
+            <h6>{session.user.email}</h6>
+            <img src={session.user.image!} alt="Profile Image"/>
         </div>
     )
 }

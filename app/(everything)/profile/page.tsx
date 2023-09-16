@@ -17,9 +17,9 @@ export default async function Page() {
             <Card className={'flex flex-col items-center gap-2 p-4 w-full md:w-1/2 lg:w-1/3 xl:w-1/4'}>
                 <div className="flex flex-col items-center gap-2 w-full">
                     <h1>Profile</h1>
-                    <h2>{session?.user?.name}</h2>
-                    <h6>{session?.user?.email}</h6>
-                    <Avatar src={session?.user?.image!} alt="Profile Image"/>
+                    <h2>{session.user.name}</h2>
+                    <h6>{session.user.email}</h6>
+                    <Avatar src={session.user.image!} alt="Profile Image"/>
                     <NewLinkInput title={'Add New Link'}/>
                 </div>
             </Card>

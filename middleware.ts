@@ -33,4 +33,4 @@ export async function middleware(request: NextRequest) {
     }
 }
 
-export const config = { matcher: ["/profile", "/auth/signin","/auth/signout", "/api/auth/signin", "/api/auth/signout"] };
+export const config = { matcher: ["/profile/:path*", "/auth/signin","/auth/signout", "/api/auth/signin", "/api/auth/signout"] };

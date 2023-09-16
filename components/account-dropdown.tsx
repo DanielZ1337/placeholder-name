@@ -47,13 +47,13 @@ export default function AccountDropdown() {
                     <p className="font-semibold">Signed in as</p>
                     <p className="font-semibold">{session.user.email}</p>
                 </DropdownItem>
-                <DropdownItem key="dashboard" onClick={() => router.push('/dashboard')}>
+                <DropdownItem key="dashboard" onClick={() => router.push('/profile/dashboard')}>
                     Dashboard
                 </DropdownItem>
-                <DropdownItem key="analytics" onClick={() => router.push('/analytics')}>
+                <DropdownItem key="analytics" onClick={() => router.push('/profile/analytics')}>
                     Analytics
                 </DropdownItem>
-                <DropdownItem key="settings" onClick={() => router.push('/settings')} showDivider>
+                <DropdownItem key="settings" onClick={() => router.push('/profile/settings')} showDivider>
                     Settings
                 </DropdownItem>
                 <DropdownItem key="logout" color="danger" onClick={() => signOut()}>
