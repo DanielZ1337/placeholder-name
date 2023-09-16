@@ -81,7 +81,7 @@ export default function Header() {
                 {status === "authenticated" && (
                     menuItems.map((item, index) => (
                         <NavbarItem isActive={pathname === item.href} key={`${item.href}-${index}`}>
-                            <NextLink href={item.href} passHref legacyBehavior>
+                            <NextLink href={item.href}>
                                 <Link aria-current={isCurrentPage(pathname, item.href) && "page"}
                                       color={isCurrentPage(pathname, item.href) ? "secondary" : "foreground"}>
                                     {item.name}
