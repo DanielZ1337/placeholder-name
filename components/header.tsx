@@ -55,6 +55,10 @@ export default function Header() {
         {
             name: "Settings",
             href: "/settings"
+        },
+        {
+            name: "Your Profile",
+            href: `/profile/${session?.user?.id}`,
         }
     ]
 
