@@ -1,17 +1,16 @@
 "use client"
 
-import {Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Switch} from "@nextui-org/react";
-import React, {useEffect, useState} from "react";
-import {Cookie} from "lucide-react";
-import {DefaultCookiePermissions, useCookieContext} from "@/components/cookie-provider";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Switch } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { Cookie } from "lucide-react";
+import { DefaultCookiePermissions, useCookieContext } from "@/components/cookie-provider";
 
 export default function CookieModal() {
     const useCookie = useCookieContext()
-    const {isOpen, onOpen, onOpenChange,setCookiePermissions,saveCookiePermissions, getCookiePermissions} = useCookie
+    const { isOpen, onOpen, onOpenChange, setCookiePermissions, saveCookiePermissions, getCookiePermissions } = useCookie
     const cookies = getCookiePermissions()
     const [preferences, setPreferences] = useState<boolean>(cookies ? cookies.preferences : DefaultCookiePermissions.preferences)
     const [statistics, setStatistics] = useState<boolean>(cookies ? cookies.statistics : DefaultCookiePermissions.statistics)
-
 
     return (
         <Modal
@@ -22,8 +21,8 @@ export default function CookieModal() {
             onOpenChange={onOpenChange}
             hideCloseButton
             backdrop={"blur"}
-            isDismissable={false}
-            isKeyboardDismissDisabled={false}
+            isDismissable={!!cookies}
+            isKeyboardDismissDisabled={!!cookies}
             onClose={() => {
                 setCookiePermissions({
                     necessary: true,
@@ -37,7 +36,7 @@ export default function CookieModal() {
                 {(onClose) => (
                     <>
                         <ModalHeader className="flex flex-col gap-1">
-                            <h2 className="text-2xl font-bold flex items-center gap-2"><Cookie/>Cookie Policy</h2>
+                            <h2 className="text-2xl font-bold flex items-center gap-2"><Cookie />Cookie Policy</h2>
                             <p className="text-sm text-shdcnmuted-shdcnforeground">
                                 Manage your cookie settings. You
                                 can enable or disable different types of cookies below.
@@ -53,7 +52,7 @@ export default function CookieModal() {
                                             functions like page navigation and access to secure areas of the
                                             website. The website cannot function properly without these cookies.
                                         </p>
-                                        <Switch size={"lg"} color={"secondary"} isReadOnly defaultSelected/>
+                                        <Switch size={"lg"} color={"secondary"} isReadOnly defaultSelected />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-2">
@@ -65,7 +64,7 @@ export default function CookieModal() {
                                             language or the region that you are in.
                                         </p>
                                         <Switch size={"lg"} color={"secondary"} onValueChange={setPreferences}
-                                                defaultSelected={preferences}/>
+                                            defaultSelected={preferences} />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-2">
@@ -77,7 +76,7 @@ export default function CookieModal() {
                                             anonymously.
                                         </p>
                                         <Switch size={"lg"} color={"secondary"} onValueChange={setStatistics}
-                                                defaultSelected={statistics}/>
+                                            defaultSelected={statistics} />
                                     </div>
                                 </div>
                             </div>

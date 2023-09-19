@@ -1,5 +1,5 @@
-import React, {createContext, useContext, useEffect, useState} from "react";
-import {useDisclosure} from "@nextui-org/react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { useDisclosure } from "@nextui-org/react";
 import CookieModal from "@/components/cookie-modal";
 
 export const CookieContext = createContext<CookieContextType>({} as CookieContextType)
@@ -8,7 +8,7 @@ type CookieContextType = {
     isOpen: boolean,
     onOpen: () => void,
     onOpenChange: () => void,
-    getCookiePermissions: () => CookiePermissions,
+    getCookiePermissions: () => CookiePermissions | undefined,
     setCookiePermissions: (cookiePermissions: CookiePermissions) => void,
     saveCookiePermissions: () => void
 }
@@ -44,8 +44,8 @@ function getCookiePermissions() {
     }
 }
 
-export default function CookieProvider({children}: { children: React.ReactNode }) {
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+export default function CookieProvider({ children }: { children: React.ReactNode }) {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [mounted, setMounted] = useState(false)
     useEffect(() => {
         setMounted(true)
@@ -54,10 +54,8 @@ export default function CookieProvider({children}: { children: React.ReactNode }
         if (mounted) {
             const currentCookiePermissions = getCookiePermissions()
             if (!currentCookiePermissions) {
-                setCookiePermissions(DefaultCookiePermissions)
                 onOpen()
             }
-
         }
     }, [mounted, onOpen])
     if (!mounted) return null
@@ -73,7 +71,7 @@ export default function CookieProvider({children}: { children: React.ReactNode }
             saveCookiePermissions
         }}>
             {children}
-            <CookieModal/>
+            <CookieModal />
         </CookieContext.Provider>
     )
 }

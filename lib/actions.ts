@@ -1,10 +1,10 @@
 'use server'
 
-import {redisClient} from "@/lib/redis";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/lib/auth";
-import {toast} from "@/components/ui/use-toast";
-import {revalidatePath} from "next/cache";
+import { redisClient } from "@/lib/redis";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { toast } from "@/components/ui/use-toast";
+import { revalidatePath } from "next/cache";
 
 export async function addNewLink(formData: FormData) {
     const session = await getServerSession(authOptions)
@@ -20,10 +20,10 @@ export async function addNewLink(formData: FormData) {
     }
 
     const data = {
-        [(formData.get('link') as string).toLowerCase()]:(formData.get('site') as string).toLowerCase()
+        [(formData.get('link') as string).toLowerCase()]: (formData.get('site') as string).toLowerCase()
     }
 
-    const isExists = await redisClient.hexists(`user:${id}:links`, formData.get('site') as string)
+    const isExists = await redisClient.hexists(`user:${id}:links`, (formData.get('link') as string).toLowerCase())
     if (isExists) {
         throw new Error('Link already exists')
     }
