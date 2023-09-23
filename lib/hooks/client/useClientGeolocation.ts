@@ -8,7 +8,7 @@ export default function UseClientGeolocation() {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get('http://ipwho.is/')
+        axios.get('https://ipwho.is/')
             .then(res => {
                 setIsLoading(false)
                 setData(res.data)
