@@ -2,9 +2,10 @@ import {sites} from "@/types/link-providers";
 import SocialMediaLink from "@/components/social-media-link";
 import React from "react";
 import {redisClient} from "@/lib/redis";
+import {createLinkKey} from "@/types/links";
 
 export default async function UserProfileLinks({id}: { id: string }) {
-    const links = await redisClient.hgetall(`user:${id}:links`) as Record<string, string>
+    const links = await redisClient.hgetall(createLinkKey(id)) as Record<string, string>
     if (!links) {
         return (
             <div className={"flex flex-col items-center gap-2"}>
