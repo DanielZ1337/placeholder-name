@@ -12,6 +12,7 @@ export default async function UserProfileLinks({id}: { id: string }) {
             </div>
         )
     }
+
     return (
         <div className={"flex gap-2 flex-col"}>
             {links && Object.entries(links).map(([link, site]) => {

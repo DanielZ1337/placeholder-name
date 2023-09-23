@@ -23,7 +23,7 @@ export default function SitesForm({currentLinks}: { currentLinks: Link[] | null 
             </div>
             <form className="flex flex-col gap-2" action={addNewLink}>
                 {[...Array(linksCount)].map((_, i) => (
-                    <div className="flex flex-col gap-2" key={i}>
+                    <div className="flex flex-col gap-2" key={Math.random() * 1000}>
                         <h6 className={"text-shdcnmuted-shdcnforeground"}>Link #{i + 1}</h6>
                         <NewLinkInput href={currentLinks ? currentLinks[i].href : undefined}
                                       site={currentLinks ? currentLinks[i].site : undefined}/>
