@@ -66,7 +66,7 @@ export async function addNewLink(formData: FormData) {
 
     const id = session.user.id
 
-    if (process.env.NODE_ENV === 'development') {
+    /*if (process.env.NODE_ENV === 'development') {
         const data = JSON.parse(formData.get('payload') as string) as Links
         const sites = data.map(entry => entry.site.toLowerCase())
         const links = data.map(entry => entry.href.toLowerCase())
@@ -80,7 +80,7 @@ export async function addNewLink(formData: FormData) {
         })
 
         return
-    }
+    }*/
 
     const site = (formData.get('site') as string).toLowerCase()
     const href = (formData.get('href') as string).toLowerCase()

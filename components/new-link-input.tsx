@@ -16,8 +16,8 @@ export default function NewLinkInput({title}: { title: string }) {
             <form className="flex flex-col gap-2" action={addNewLink}>
                 <Input type="text" placeholder="Site" name='site' className={"hidden"} value={newLinkProvider || ''}/>
                 <LinkProviderSelector setNewLinkProvider={setNewLinkProvider}/>
-                <label htmlFor="link" className="text-secondary text-sm">Link</label>
-                <Input type="text" placeholder="https://example.com/yourusername" name='link' required/>
+                <label htmlFor="href" className="text-secondary text-sm">Link</label>
+                <Input type="text" placeholder="https://example.com/yourusername" name='href' required/>
                 <SaveButton/>
             </form>
         </div>
