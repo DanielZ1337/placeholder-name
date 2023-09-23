@@ -5,7 +5,7 @@ import {redisClient} from "@/lib/redis";
 import {createLinkKey} from "@/types/links";
 
 export default async function UserProfileLinks({id}: { id: string }) {
-    const links = await redisClient.hgetall(`${id}:links`) as Record<string, string>
+    const links = await redisClient.hgetall(createLinkKey(id)) as Record<string, string>
     if (!links) {
         return (
             <div className={"flex flex-col items-center gap-2"}>
