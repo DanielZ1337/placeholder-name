@@ -47,8 +47,8 @@ interface DataItem {
     };
 }
 
-export default async function getAnalytics(id: string) {
-    const linkAnalyticsKeys = await redisClient.keys(createLinkAnalyticsKey(id, '*'))
+export default async function getAnalytics(key:string) {
+    const linkAnalyticsKeys = await redisClient.keys(key)
 
     const analytics = await Promise.all(linkAnalyticsKeys.map(async (key) => {
 

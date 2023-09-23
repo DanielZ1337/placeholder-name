@@ -1,6 +1,6 @@
 export default function SmallBox({title}: { title: string }) {
     return (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800" data-id="45">
+        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-clip" data-id="45">
             <div className="p-4" data-id="46">
                 <h3 className="text-md font-medium" data-id="47">
                     {title}

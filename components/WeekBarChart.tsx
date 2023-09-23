@@ -47,48 +47,45 @@ interface DataItem {
 }
 
 // Function to calculate the total clicks for a date
-function calculateTotalClicks(date: string, analytics: { [date: string]: DataItem[] }) {
+function calculateTotalDataKey(date: string, analytics: { [date: string]: DataItem[] }) {
     const dataItems = analytics[date];
     return dataItems ? dataItems.length : 0;
 }
 
 
-export default function WeekBarChart({groupedData}: { groupedData: { [date: string]: DataItem[] } }) {
+export default function WeekBarChart({groupedData, width, height, datakey}: { groupedData: { [date: string]: DataItem[] }, width?: string, height?: string, datakey:string }) {
 
     // Generate data for the chart
     const chartData = Object.keys(groupedData).map((date) => ({
         date,
-        clicks: calculateTotalClicks(date, groupedData),
+        [datakey]: calculateTotalDataKey(date, groupedData),
     }));
 
     console.log(chartData)
 
 
     return (
-        <div style={{width: '100%', height: '100%'}}>
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                    width={500}
-                    height={300}
-                    data={chartData}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
-                >
+        <ResponsiveContainer width={width || "100%"} height={height || "100%"}>
+            <LineChart
+                data={chartData}
+                margin={{
+                    top: 20,
+                    right: 30,
+                    left: 10,
+                    bottom: 20,
+                }}
+            >
 
-                    <XAxis dataKey="date" scale="point" padding={{left: 10, right: 10}}/>
-                    <YAxis scale={"sqrt"}/>
-                    <Tooltip contentStyle={{
-                        backgroundColor: 'hsl(var(--nextui-secondary-100))',
-                    }}/>
-                    <Legend/>
-                    <Line type="monotone" stroke={"hsl(var(--nextui-foreground))"} strokeWidth={2} dataKey="clicks"
-                          activeDot={{r: 8, className: 'fill-secondary'}}/>
-                </LineChart>
-            </ResponsiveContainer>
-        </div>
+                <XAxis stroke={"hsl(var(--primary))"} strokeWidth={2} dataKey="date" scale="point"
+                       padding={{left: 10, right: 10}}/>
+                <YAxis stroke={"hsl(var(--primary))"} strokeWidth={2}/>
+                <Tooltip contentStyle={{
+                    backgroundColor: 'hsl(var(--nextui-secondary-50))',
+                }}/>
+                <Legend/>
+                <Line type="monotone" stroke={"hsl(var(--nextui-foreground))"} strokeWidth={2} dataKey={datakey}
+                      activeDot={{r: 8, className: 'fill-secondary'}}/>
+            </LineChart>
+        </ResponsiveContainer>
     );
 }

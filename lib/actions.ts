@@ -5,20 +5,21 @@ import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
 import {GeolocationApiResponse} from "@/types/geolocation-api-response";
 import {createLinkKey, Link} from "@/types/links";
+import {createVisitAnalyticsKey} from "@/types/analytics";
 
 export async function testServer() {
     console.log('testServer')
     return 'testServer'
 }
 
-export async function AddNewVisitAnalytics(id: string, geo: GeolocationApiResponse) {
+export async function AddNewVisitAnalytics(id: string, href:string, geo: GeolocationApiResponse) {
     const data = {
         id,
         date: Date.now(),
         geo
     }
 
-    await redisClient.sadd(`visit-analytics:${id}`, JSON.stringify(data)).then(() => {
+    await redisClient.sadd(createVisitAnalyticsKey(id, href), JSON.stringify(data)).then(() => {
         console.log('Added')
     })
 

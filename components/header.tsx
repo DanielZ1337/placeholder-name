@@ -67,7 +67,7 @@ export default function Header() {
 
     return (
         <Navbar
-            className={cn('backdrop-blur ease-in-out duration-200 transition-all', navbarShadow && "shadow-lg bg-background")}
+            className={cn('backdrop-blur ease-in-out duration-200 transition-all', navbarShadow && "shadow-lg")}
             onMenuOpenChange={setIsMenuOpen}>
             {status === "authenticated" && (
                 <NavbarMenuToggle
