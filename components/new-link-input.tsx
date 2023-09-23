@@ -1,25 +1,20 @@
 'use client'
 
-import {SaveButton} from "@/components/form-button";
-import {addNewLink} from "@/lib/actions";
-import LinkProviderSelector from "@/components/link-provider-selector";
+import LinkSiteSelector from "@/components/link-site-selector";
 import React from "react";
 import {Input} from "@nextui-org/react";
+import {Link} from "@/types/links";
 
-export default function NewLinkInput({title}: { title: string }) {
-    const [newLinkProvider, setNewLinkProvider] = React.useState('')
+export default function NewLinkInput({href, site}: { href?: Link["href"], site?: Link["site"] }) {
+    const [newLinkSite, setNewLinkSite] = React.useState<Link["site"] | undefined>(site)
+    const [newLinkHref, setNewLinkHref] = React.useState<Link["href"] | undefined>(href)
 
     return (
-        <div className="flex flex-col gap-2">
-            <h2 className={'text-2xl font-bold text-muted'}>{title}</h2>
-            <p className={'text-muted'}>Add a new link to your profile.</p>
-            <form className="flex flex-col gap-2" action={addNewLink}>
-                <Input type="text" placeholder="Site" name='site' className={"hidden"} value={newLinkProvider || ''}/>
-                <LinkProviderSelector setNewLinkProvider={setNewLinkProvider}/>
-                <label htmlFor="href" className="text-secondary text-sm">Link</label>
-                <Input type="text" placeholder="https://example.com/yourusername" name='href' required/>
-                <SaveButton/>
-            </form>
-        </div>
+        <>
+            <Input type="text" placeholder="Site" name='site' className={"hidden"} value={newLinkSite || undefined}/>
+            <LinkSiteSelector setNewLinkSite={setNewLinkSite} defaultSelected={site}/>
+            <label htmlFor="href" className="text-secondary text-sm">Link</label>
+            <Input type="text" placeholder="https://example.com/yourusername" name='href' required value={newLinkHref || undefined}/>
+        </>
     )
 }

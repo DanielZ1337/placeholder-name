@@ -3,12 +3,15 @@
 import React from "react";
 import {Select, SelectItem} from "@nextui-org/react";
 import {sites} from "@/types/link-providers";
+import {Link} from "@/types/links";
 
 
-export default function LinkProviderSelector({setNewLinkProvider}: {
-    setNewLinkProvider: React.Dispatch<React.SetStateAction<string>>
+export default function LinkSiteSelector({setNewLinkSite, defaultSelected}: {
+    setNewLinkSite: React.Dispatch<React.SetStateAction<Link["site"] | undefined>>
+    defaultSelected?: Link["site"]
 }) {
 
+    const findDefaultSelectedObject = Object.values(sites).find(s => s.name.toLowerCase() === defaultSelected?.toLowerCase())!
     return (
         <Select
             items={Object.values(sites)}
@@ -18,8 +21,9 @@ export default function LinkProviderSelector({setNewLinkProvider}: {
             className="max-w-xs"
             color={"secondary"}
             onSelectionChange={(value) => {
-                setNewLinkProvider((new Set(value)).values().next().value.toLowerCase())
+                setNewLinkSite((new Set(value)).values().next().value.toLowerCase())
             }}
+            {...(defaultSelected ? {defaultSelectedKeys: [findDefaultSelectedObject.name]} : {})}
             renderValue={(value) => {
                 const site = value[0].data!
                 return (

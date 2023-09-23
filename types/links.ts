@@ -1,10 +1,9 @@
 import {sitesNames} from "@/types/link-providers";
-
-export type Links = {
-    id: string,
+export type Link = {
+    id: number,
     href: string
     site: sitesNames
-}[]
+}
 
 export const linkPrefix = 'link:'
 

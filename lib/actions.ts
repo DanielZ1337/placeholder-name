@@ -4,7 +4,7 @@ import {redisClient} from "@/lib/redis";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
 import {GeolocationApiResponse} from "@/types/geolocation-api-response";
-import {createLinkKey, Links} from "@/types/links";
+import {createLinkKey, Link} from "@/types/links";
 
 export async function testServer() {
     console.log('testServer')
@@ -66,41 +66,24 @@ export async function addNewLink(formData: FormData) {
 
     const id = session.user.id
 
-    if (process.env.NODE_ENV === 'development') {
-        const data = JSON.parse(formData.get('payload') as string) as Links
-        const sites = data.map(entry => entry.site.toLowerCase())
-        const links = data.map(entry => entry.href.toLowerCase())
+    // const data = JSON.parse(formData.get('payload') as string) as Links
+    const sites = formData.getAll('site') as string[] as Link['site'][]
+    const links = formData.getAll('href') as string[] as Link['href'][]
 
-        if (!sites || !links || !data || !data.length) {
-            throw new Error('Missing data')
-        }
-
-        await redisClient.set(createLinkKey(id), JSON.stringify(data)).then(() => {
-            console.log('Links set')
-        })
-
-        return
-    }
-
-    const site = (formData.get('site') as string).toLowerCase()
-    const href = (formData.get('href') as string).toLowerCase()
-
-    if (!site || !href) {
+    if (!sites || !links || sites.length !== links.length && sites.length > 0) {
         throw new Error('Missing data')
     }
 
-    const data = {
-        [href]: site
-    }
+    const data = sites.map((site, id) => ({
+        id,
+        site,
+        href: links[id],
+    })) satisfies Link[]
 
-    const isExists = await redisClient.hexists(createLinkKey(id), site)
-    if (isExists) {
-        throw new Error('Link already exists')
-    }
-
-    await redisClient.hmset(createLinkKey(id), data).then(() => {
-        console.log('Added')
+    await redisClient.set(createLinkKey(id), JSON.stringify(data)).then(() => {
+        console.log('Links set')
     })
+
 
     // revalidatePath(`/profile/${id}`)
 }
