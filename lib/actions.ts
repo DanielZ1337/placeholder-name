@@ -90,7 +90,7 @@ export async function addNewLink(formData: FormData) {
     }
 
     const data = {
-        [site]: href
+        [href]: site
     }
 
     const isExists = await redisClient.hexists(createLinkKey(id), site)
