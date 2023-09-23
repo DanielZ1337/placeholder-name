@@ -27,6 +27,7 @@ export default async function Page() {
                     <div className="flex flex-col gap-2">
                         <h2 className={'text-2xl font-bold text-muted'}>Title to something</h2>
                         <p className={'text-muted'}>Add a new link to your profile.</p>
+                        {JSON.stringify(currentLinks)}
                         <SitesForm currentLinks={currentLinks}/>
                     </div>
                 </div>
