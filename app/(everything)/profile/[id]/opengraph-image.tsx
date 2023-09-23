@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/server'
+import {Inter} from 'next/font/google'
 
 // Route segment config
 export const runtime = 'edge'
@@ -14,41 +15,56 @@ export const contentType = 'image/png'
 
 // Image generation
 export default async function Image({params: {id}}:{ params: { id: string } }) {
-    // Font
-    const interSemiBold = fetch(
-        new URL('./Inter-SemiBold.ttf', import.meta.url)
-    ).then((res) => res.arrayBuffer())
+    const inter = Inter({subsets: ['latin']})
 
     return new ImageResponse(
         (
-            // ImageResponse JSX element
             <div
+                className={inter.className}
                 style={{
-                    fontSize: 128,
-                    background: 'white',
-                    width: '100%',
+                    backgroundColor: 'black',
+                    backgroundSize: '150px 150px',
                     height: '100%',
+                    width: '100%',
                     display: 'flex',
+                    textAlign: 'center',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    flexDirection: 'column',
+                    flexWrap: 'nowrap',
                 }}
             >
-                {id}
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        justifyItems: 'center',
+                    }}
+                >
+                    <img
+                        alt="Vercel"
+                        height={200}
+                        src="data:image/svg+xml,%3Csvg width='116' height='100' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M57.5 0L115 100H0L57.5 0z' /%3E%3C/svg%3E"
+                        style={{ margin: '0 30px' }}
+                        width={232}
+                    />
+                </div>
+                <div
+                    style={{
+                        fontSize: 60,
+                        fontStyle: 'normal',
+                        letterSpacing: '-0.025em',
+                        color: 'white',
+                        marginTop: 30,
+                        padding: '0 120px',
+                        lineHeight: 1.4,
+                        whiteSpace: 'pre-wrap',
+                    }}
+                >
+                    {id}
+                </div>
             </div>
-        ),
-        // ImageResponse options
-        {
-            // For convenience, we can re-use the exported opengraph-image
-            // size config to also set the ImageResponse's width and height.
-            ...size,
-            fonts: [
-                {
-                    name: 'Inter',
-                    data: await interSemiBold,
-                    style: 'normal',
-                    weight: 400,
-                },
-            ],
-        }
+        )
     )
 }
