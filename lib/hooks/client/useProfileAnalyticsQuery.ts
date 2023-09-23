@@ -1,3 +1,4 @@
+/*
 'use client'
 
 import {startTransition, useEffect} from "react";
@@ -21,4 +22,4 @@ export default function useProfileAnalyticsQuery(id: string) {
     }, [isLoading, id, data])
 
     return {isLoading, data}
-}
+}*/
