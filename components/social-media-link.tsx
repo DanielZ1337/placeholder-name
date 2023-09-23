@@ -62,7 +62,6 @@ export default function SocialMediaLink({id, href, color, icon, children, classN
 
     const mutation = useLinkAnalyticsQuery({
         geo,
-        id,
         href
     })
 

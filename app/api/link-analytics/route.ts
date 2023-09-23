@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {authOptions} from "@/lib/auth";
 import {getServerSession} from "next-auth";
-import {createLinkAnalyticsKey} from "@/types/analytics";
+import {Analytics, createLinkAnalyticsKey} from "@/types/analytics";
 
 export async function POST(Request: NextRequest, Response: NextResponse) {
     if (!Request.body) return NextResponse.json({error: 'No body provided'}, {status: 400})
@@ -20,11 +20,15 @@ export async function POST(Request: NextRequest, Response: NextResponse) {
 
     try {
         const {redisClient} = await import('@/lib/redis')
-        await redisClient.sadd(linkAnalyticsKey, {
+
+        const analyticsPayload = {
             date,
-            user_agent: Request.headers.get('user-agent'),
-            geo
-        })
+            user_agent: Request.headers.get('user-agent') ?? undefined,
+            geo,
+            href
+        } satisfies Analytics
+
+        await redisClient.sadd(linkAnalyticsKey, analyticsPayload)
 
         return NextResponse.json({success: true}, {status: 200})
     } catch (error) {

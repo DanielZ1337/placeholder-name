@@ -2,17 +2,12 @@ import {useMutation} from '@tanstack/react-query';
 import axios from 'axios'
 import {startTransition} from "react";
 import {testServer} from "@/lib/actions";
+import {Analytics} from "@/types/analytics";
 
-type Parameters = {
-    id: string,
-    href: string,
-    geo: {} | undefined
-}
-
-export default function useLinkAnalyticsQuery({...args}: Parameters) {
+export default function useLinkAnalyticsQuery({...args}: Omit<Analytics, 'date' | 'user_agent'>) {
     return useMutation(
         async () => {
-            const {data} = await axios.post('/api/link-analytics', {date: Date.now(), ...args})
+            const {data} = await axios.post('/api/link-analytics', {...args, date: Date.now()})
             return data
         },
         {
