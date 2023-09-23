@@ -4,7 +4,7 @@ import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
 import {redirect} from "next/navigation";
 import getLinksByProfileID from "@/lib/hooks/server/getLinksByProfileID";
-// import SitesForm from "@/components/sites-form";
+import SitesForm from "@/components/sites-form";
 import {Avatar} from "@nextui-org/avatar";
 
 export default async function Page() {
@@ -24,11 +24,11 @@ export default async function Page() {
                     <h2>{session.user.name}</h2>
                     <h6>{session.user.email}</h6>
                     <Avatar src={session.user.image!} alt="Profile Image"/>
-                    {/*<div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2">
                         <h2 className={'text-2xl font-bold text-muted'}>Title to something</h2>
                         <p className={'text-muted'}>Add a new link to your profile.</p>
                         <SitesForm currentLinks={currentLinks}/>
-                    </div>*/}
+                    </div>
                 </div>
             </Card>
         </div>
