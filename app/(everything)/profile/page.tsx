@@ -1,17 +1,10 @@
-import NewLinkInput from "@/components/new-link-input";
 import {Card} from "@nextui-org/card";
-import {SaveButton} from "@/components/form-button";
 import React from "react";
-import {addNewLink} from "@/lib/actions";
-import {Button} from "@nextui-org/react";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
 import {redirect} from "next/navigation";
-import {redisClient} from "@/lib/redis";
-import {createLinkKey, Link} from "@/types/links";
 import getLinksByProfileID from "@/lib/hooks/server/getLinksByProfileID";
 import SitesForm from "@/components/sites-form";
-import {Avatar} from "@nextui-org/avatar";
 
 export default async function Page() {
     const session = await getServerSession(authOptions)
@@ -31,7 +24,7 @@ export default async function Page() {
                     <h6>{session.user.email}</h6>
                     <Avatar src={session.user.image!} alt="Profile Image"/>*/}
                     <div className="flex flex-col gap-2">
-                        <h1 className={'text-2xl font-bold'}>You are not editing your profile!!!</h1>
+                        <h1 className={'text-2xl font-bold'}>You are now editing your profile</h1>
                         <h2 className={'text-muted'}>Add a new link to your profile.</h2>
                         <SitesForm currentLinks={currentLinks}/>
                     </div>
