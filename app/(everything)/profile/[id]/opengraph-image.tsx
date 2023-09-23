@@ -1,5 +1,4 @@
 import { ImageResponse } from 'next/server'
-import {Inter} from 'next/font/google'
 
 // Route segment config
 export const runtime = 'edge'
@@ -15,12 +14,10 @@ export const contentType = 'image/png'
 
 // Image generation
 export default async function Image({params: {id}}:{ params: { id: string } }) {
-    const inter = Inter({subsets: ['latin']})
 
     return new ImageResponse(
         (
             <div
-                className={inter.className}
                 style={{
                     backgroundColor: 'black',
                     backgroundSize: '150px 150px',
