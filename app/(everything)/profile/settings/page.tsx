@@ -1,6 +1,7 @@
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
 import {redirect} from "next/navigation";
+import {Avatar} from "@nextui-org/avatar";
 
 export default async function Page() {
     const session = await getServerSession(authOptions)
@@ -14,7 +15,7 @@ export default async function Page() {
             <h1>Settings</h1>
             <h2>{session.user.name}</h2>
             <h6>{session.user.email}</h6>
-            <img src={session.user.image!} alt="Profile Image"/>
+            <Avatar src={session.user.image!} alt="Profile Image"/>
         </div>
     )
 }

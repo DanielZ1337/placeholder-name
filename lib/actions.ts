@@ -1,10 +1,61 @@
 'use server'
 
-import { redisClient } from "@/lib/redis";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { toast } from "@/components/ui/use-toast";
-import { revalidatePath } from "next/cache";
+import {redisClient} from "@/lib/redis";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/lib/auth";
+import {GeolocationApiResponse} from "@/types/geolocation-api-response";
+import {createLinkKey, Links} from "@/types/links";
+
+export async function testServer() {
+    console.log('testServer')
+    return 'testServer'
+}
+
+export async function AddNewVisitAnalytics(id: string, geo: GeolocationApiResponse) {
+    const data = {
+        id,
+        date: Date.now(),
+        geo
+    }
+
+    await redisClient.sadd(`visit-analytics:${id}`, JSON.stringify(data)).then(() => {
+        console.log('Added')
+    })
+
+    // revalidatePath(`/profile/${id}`)
+}
+
+export async function addNewLinkAnalytics(formData: FormData) {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+        throw new Error('Not authenticated')
+    }
+
+    const id = session.user.id
+
+    if (!formData.get('href') || !formData.get('geo')) {
+        throw new Error('Missing data')
+    }
+
+    const data = {
+        id,
+        href: (formData.get('href') as string).toLowerCase(),
+        date: Date.now(),
+        geo: JSON.parse(formData.get('geo') as string)
+    }
+
+    const isExists = await redisClient.sismember(`link-analytics:${id}:${data.href}`, JSON.stringify(data))
+    if (isExists) {
+        throw new Error('Link analytics already exists')
+    }
+
+    await redisClient.sadd(`link-analytics:${id}:${data.href}`, JSON.stringify(data)).then(() => {
+        console.log('Added')
+    })
+
+    // revalidatePath(`/profile/${id}`)
+}
 
 export async function addNewLink(formData: FormData) {
     const session = await getServerSession(authOptions)
@@ -15,21 +66,27 @@ export async function addNewLink(formData: FormData) {
 
     const id = session.user.id
 
-    if (!formData.get('site') || !formData.get('link')) {
+    /*const data = JSON.parse(formData.get('payload') as string) as Links
+    const sites = data.map(entry => entry.site.toLowerCase())
+    const links = data.map(entry => entry.href.toLowerCase())
+
+    if (!sites || !links || !data || !data.length) {
+        throw new Error('Missing data')
+    }*/
+
+    const site = (formData.get('site') as string).toLowerCase()
+    const href = (formData.get('href') as string).toLowerCase()
+
+    if (!site || !href) {
         throw new Error('Missing data')
     }
 
     const data = {
-        [(formData.get('link') as string).toLowerCase()]: (formData.get('site') as string).toLowerCase()
+        [site]: href
     }
 
-    const isExists = await redisClient.hexists(`user:${id}:links`, (formData.get('link') as string).toLowerCase())
-    if (isExists) {
-        throw new Error('Link already exists')
-    }
-
-    await redisClient.hset(`user:${id}:links`, data).then(() => {
-        console.log('Added')
+    await redisClient.set(createLinkKey(id), data).then(() => {
+        console.log('Links set')
     })
 
     // revalidatePath(`/profile/${id}`)

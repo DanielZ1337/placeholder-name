@@ -1,15 +1,15 @@
 "use client";
 
 // import { CheckIcon, TrashIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
-import { Spinner } from "@nextui-org/spinner";
-import { CheckIcon } from "@nextui-org/shared-icons";
-import { cn } from "@/lib/utils";
-import { Button } from "@nextui-org/react";
+import {useState} from "react";
+import {experimental_useFormStatus as useFormStatus} from "react-dom";
+import {Spinner} from "@nextui-org/spinner";
+import {CheckIcon} from "@nextui-org/shared-icons";
+import {cn} from "@/lib/utils";
+import {Button} from "@nextui-org/react";
 
 export const DeleteButton = () => {
-    const { pending } = useFormStatus();
+    const {pending} = useFormStatus();
 
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
@@ -21,7 +21,7 @@ export const DeleteButton = () => {
             >
                 {pending ? (
                     <>
-                        <Spinner />
+                        <Spinner/>
                         Deleting...
                     </>
                 ) : (
@@ -53,14 +53,14 @@ export const DeleteButton = () => {
 };
 
 export const SaveButton = () => {
-    const { pending } = useFormStatus();
+    const {pending} = useFormStatus();
 
     return (
         <Button
             color={"secondary"}
             type="submit"
             isLoading={pending}
-            spinner={<Spinner color={"current"} size={"sm"} />}
+            spinner={<Spinner color={"current"} size={"sm"}/>}
             disabled={pending}
         >
             {pending ? 'Saving...' : (
@@ -114,19 +114,19 @@ export const SaveButton = () => {
 };*/
 
 export const ActionButton = ({
-    className = "",
-    icon = null,
-    label = "Save",
-    loadingLabel = "Saving",
-    disabled = false,
-}: {
+                                 className = "",
+                                 icon = null,
+                                 label = "Save",
+                                 loadingLabel = "Saving",
+                                 disabled = false,
+                             }: {
     className?: string;
     icon?: React.ReactElement | null;
     label?: string;
     loadingLabel?: string;
     disabled?: boolean;
 }) => {
-    const { pending } = useFormStatus();
+    const {pending} = useFormStatus();
 
     return (
         <button
@@ -140,7 +140,7 @@ export const ActionButton = ({
         >
             {pending ? (
                 <>
-                    <Spinner />
+                    <Spinner/>
                     {loadingLabel}
                 </>
             ) : (

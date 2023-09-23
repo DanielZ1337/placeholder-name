@@ -1,8 +1,10 @@
 import {
-    CodepenIcon, Codesandbox,
+    CodepenIcon,
+    Codesandbox,
     Dribbble,
     FacebookIcon,
-    GithubIcon, GitlabIcon,
+    GithubIcon,
+    GitlabIcon,
     InstagramIcon,
     LinkedinIcon,
     TwitchIcon,
@@ -16,164 +18,162 @@ import {PiDevToLogo} from "react-icons/pi";
 import {FaHashnode} from "react-icons/fa6";
 import {SiGlitch, SiMicrosoftazure, SiProducthunt, SiReplit, SiStackoverflow, SiVercel} from "react-icons/si";
 import {CgBitbucket} from "react-icons/cg";
-import {RxVercelLogo} from "react-icons/rx";
 import {DiFirebase} from "react-icons/di";
-import React from "react";
 
 export const sites = [
     {
-        name: 'Github',
+        name: "Github",
         icon: GithubIcon,
-        color: '#333333'
+        color: "#333333"
     },
     {
-        name: 'Twitter',
+        name: "Twitter",
         icon: TwitterIcon,
-        color: '#1DA1F2'
+        color: "#1DA1F2"
     },
     {
-        name: 'Linkedin',
+        name: "Linkedin",
         icon: LinkedinIcon,
-        color: '#0a66c2'
+        color: "#0a66c2"
     },
     {
-        name: 'Facebook',
+        name: "Facebook",
         icon: FacebookIcon,
-        color: '#1877f2'
+        color: "#1877f2"
     },
     {
-        name: 'Instagram',
+        name: "Instagram",
         icon: InstagramIcon,
-        color: '#405de6'
+        color: "#405de6"
     },
     {
-        name: 'Youtube',
+        name: "Youtube",
         icon: YoutubeIcon,
-        color:"#ff0000"
+        color: "#ff0000"
     },
     {
-        name: 'Twitch',
+        name: "Twitch",
         icon: TwitchIcon,
-        color: '#6441a5'
+        color: "#6441a5"
     },
     {
-        name: 'Tiktok',
+        name: "Tiktok",
         icon: BiLogoTiktok,
-        color: '#000000'
+        color: "#000000"
     },
     {
-        name: 'Snapchat',
+        name: "Snapchat",
         icon: BsSnapchat,
-        color: '#fffc00'
+        color: "#fffc00"
     },
     {
-        name: 'Reddit',
+        name: "Reddit",
         icon: BsReddit,
-        color: '#ff4500'
+        color: "#ff4500"
     },
     {
-        name: 'Pinterest',
+        name: "Pinterest",
         icon: FaPinterest,
-        color: '#bd081c'
+        color: "#bd081c"
     },
     {
-        name: 'Medium',
+        name: "Medium",
         icon: FaMedium,
-        color: '#000000'
+        color: "#000000"
     },
     {
-        name: 'Dev.to',
+        name: "Dev.to",
         icon: PiDevToLogo,
-        color: '#0a0a0a'
+        color: "#0a0a0a"
     },
     {
-        name: 'Hashnode',
+        name: "Hashnode",
         icon: FaHashnode,
-        color: '#2962ff'
+        color: "#2962ff"
     },
     {
-        name: 'Stackoverflow',
+        name: "Stackoverflow",
         icon: SiStackoverflow,
-        color: '#f48024'
+        color: "#f48024"
     },
     {
-        name: 'Behance',
+        name: "Behance",
         icon: BsBehance,
-        color: '#1769ff'
+        color: "#1769ff"
     },
     {
-        name: 'Dribbble',
+        name: "Dribbble",
         icon: Dribbble,
-        color: '#ea4c89'
+        color: "#ea4c89"
     },
     {
-        name: 'Producthunt',
+        name: "Producthunt",
         icon: SiProducthunt,
-        color: '#da552f'
+        color: "#da552f"
     },
     {
-        name: 'Gitlab',
+        name: "Gitlab",
         icon: GitlabIcon,
-        color: '#fc6d26'
+        color: "#fc6d26"
     },
     {
-        name: 'Bitbucket',
+        name: "Bitbucket",
         icon: CgBitbucket,
-        color: '#0052cc'
+        color: "#0052cc"
     },
     {
-        name: 'Codepen',
+        name: "Codepen",
         icon: CodepenIcon,
-        color: '#000000'
+        color: "#000000"
     },
     {
-        name: 'Codesandbox',
+        name: "Codesandbox",
         icon: Codesandbox,
-        color: '#000000'
+        color: "#000000"
     },
     {
-        name: 'Replit',
+        name: "Replit",
         icon: SiReplit,
-        color: '#1d2021'
+        color: "#1d2021"
     },
     {
-        name: 'Glitch',
+        name: "Glitch",
         icon: SiGlitch,
-        color: '#000000'
+        color: "#000000"
     },
     {
-        name: 'Vercel',
+        name: "Vercel",
         icon: SiVercel,
-        color: '#000000'
+        color: "#000000"
     },
     {
-        name: 'Netlify',
+        name: "Netlify",
         icon: BiLogoNetlify,
-        color: '#000000'
+        color: "#000000"
     },
     {
-        name: 'Heroku',
+        name: "Heroku",
         icon: BiLogoHeroku,
-        color: '#430098'
+        color: "#430098"
     },
     {
-        name: 'Firebase',
+        name: "Firebase",
         icon: DiFirebase,
-        color: '#ffca28'
+        color: "#ffca28"
     },
     {
-        name: 'Azure',
+        name: "Azure",
         icon: SiMicrosoftazure,
-        color: '#0089d6'
+        color: "#0089d6"
     },
     {
-        name: 'AWS',
+        name: "AWS",
         icon: FaAws,
-        color: '#232f3e'
+        color: "#232f3e"
     }
 ] as const
 
-export type sitesTypes = typeof sites[number]['name']
+export type sitesNames = typeof sites[number]["name"]
 export const sitesNames = sites.map(site => site.name)
 export const sitesIcons = sites.map(site => site.icon)
 export const sitesColors = sites.map(site => site.color)

@@ -1,16 +1,16 @@
 "use client"
 
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Switch } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import { Cookie } from "lucide-react";
-import { DefaultCookiePermissions, useCookieContext } from "@/components/cookie-provider";
+import {Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Switch} from "@nextui-org/react";
+import React, {useState} from "react";
+import {Cookie} from "lucide-react";
+import {DefaultCookiePermissions, useCookieContext} from "@/components/cookie-provider";
 
 export default function CookieModal() {
     const useCookie = useCookieContext()
-    const { isOpen, onOpen, onOpenChange, setCookiePermissions, saveCookiePermissions, getCookiePermissions } = useCookie
+    const {isOpen, onOpen, onOpenChange, setCookiePermissions, saveCookiePermissions, getCookiePermissions} = useCookie
     const cookies = getCookiePermissions()
     const [preferences, setPreferences] = useState<boolean>(cookies ? cookies.preferences : DefaultCookiePermissions.preferences)
-    const [statistics, setStatistics] = useState<boolean>(cookies ? cookies.statistics : DefaultCookiePermissions.statistics)
+    const [analytics, setAnalytics] = useState<boolean>(cookies ? cookies.analytics : DefaultCookiePermissions.analytics)
 
     return (
         <Modal
@@ -27,7 +27,7 @@ export default function CookieModal() {
                 setCookiePermissions({
                     necessary: true,
                     preferences: preferences,
-                    statistics: statistics
+                    analytics: analytics
                 })
                 saveCookiePermissions()
             }}
@@ -36,7 +36,7 @@ export default function CookieModal() {
                 {(onClose) => (
                     <>
                         <ModalHeader className="flex flex-col gap-1">
-                            <h2 className="text-2xl font-bold flex items-center gap-2"><Cookie />Cookie Policy</h2>
+                            <h2 className="text-2xl font-bold flex items-center gap-2"><Cookie/>Cookie Policy</h2>
                             <p className="text-sm text-shdcnmuted-shdcnforeground">
                                 Manage your cookie settings. You
                                 can enable or disable different types of cookies below.
@@ -52,7 +52,7 @@ export default function CookieModal() {
                                             functions like page navigation and access to secure areas of the
                                             website. The website cannot function properly without these cookies.
                                         </p>
-                                        <Switch size={"lg"} color={"secondary"} isReadOnly defaultSelected />
+                                        <Switch size={"lg"} color={"secondary"} isReadOnly defaultSelected/>
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-2">
@@ -64,19 +64,19 @@ export default function CookieModal() {
                                             language or the region that you are in.
                                         </p>
                                         <Switch size={"lg"} color={"secondary"} onValueChange={setPreferences}
-                                            defaultSelected={preferences} />
+                                                defaultSelected={preferences}/>
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                    <h3 className="text-lg font-bold">Statistics</h3>
+                                    <h3 className="text-lg font-bold">Analytics</h3>
                                     <div className="flex gap-2">
                                         <p className="text-shdcnmuted-shdcnforeground text-sm">
-                                            Statistic cookies help website owners to understand how visitors
+                                            Analytics cookies help website owners to understand how visitors
                                             interact with websites by collecting and reporting information
                                             anonymously.
                                         </p>
-                                        <Switch size={"lg"} color={"secondary"} onValueChange={setStatistics}
-                                            defaultSelected={statistics} />
+                                        <Switch size={"lg"} color={"secondary"} onValueChange={setAnalytics}
+                                                defaultSelected={analytics}/>
                                     </div>
                                 </div>
                             </div>

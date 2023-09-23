@@ -10,28 +10,28 @@ export default function Footer() {
         <footer className="bg-white dark:bg-black">
             <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <a href="/" className="flex items-center mb-4 sm:mb-0">
+                    <Link href="/" className="flex items-center mb-4 sm:mb-0">
                         <Image src={logo.src} className="h-8 mr-3" alt={`${siteConfig.title} Logo`}/>
                         <span
                             className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{siteConfig.title}</span>
-                    </a>
+                    </Link>
                     <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
                         <li>
-                            <a href="#"
-                               className="mr-4 hover:underline hover:decoration-secondary hover:text-secondary md:mr-6 ">About</a>
+                            <Link href="#"
+                               className="mr-4 hover:underline hover:decoration-secondary hover:text-secondary md:mr-6 ">About</Link>
                         </li>
                         <li>
-                            <a href="#"
+                            <Link href="#"
                                className="mr-4 hover:underline hover:decoration-secondary hover:text-secondary md:mr-6">Privacy
-                                Policy</a>
+                                Policy</Link>
                         </li>
                         <li>
-                            <a href="#"
-                               className="mr-4 hover:underline hover:decoration-secondary hover:text-secondary md:mr-6 ">Licensing</a>
+                            <Link href="#"
+                               className="mr-4 hover:underline hover:decoration-secondary hover:text-secondary md:mr-6 ">Licensing</Link>
                         </li>
                         <li>
-                            <a href="#"
-                               className="hover:underline hover:decoration-secondary hover:text-secondary">Contact</a>
+                            <Link href="#"
+                               className="hover:underline hover:decoration-secondary hover:text-secondary">Contact</Link>
                         </li>
                         <li>
                             <CookieButton/>

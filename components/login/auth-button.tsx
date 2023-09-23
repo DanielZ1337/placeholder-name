@@ -2,10 +2,11 @@
 
 import React, {useState} from "react";
 import {Button, ButtonProps} from "@nextui-org/react";
-import {signIn, SignInOptions, signOut, SignOutParams} from "next-auth/react";
+import {SignInOptions, SignOutParams} from "next-auth/react";
 import {cn} from "@/lib/utils";
 import {Spinner} from "@nextui-org/spinner";
-import {toast} from "@/components/ui/use-toast";
+
+// import {toast} from "@/components/ui/use-toast";
 
 export interface AuthButtonProps
     extends ButtonProps {
@@ -40,14 +41,15 @@ function AuthButtonWrapper({
             variant={"solid"}
             isLoading={isLoading || externalLoadingState}
             spinner={<Spinner color={"current"} size={"sm"}/>}
-            onClick={() => {
+            onClick={async () => {
                 if (usingExternalLoadingState) return
-
                 if (signingOut) {
+                    const signOut = await import("next-auth/react").then((mod) => mod.signOut)
                     signOut(signOutOptions).then(() => {
                         setIsLoading(false)
-                    }).catch(() => {
+                    }).catch(async () => {
                         setIsLoading(false)
+                        const toast = await import("@/components/ui/use-toast").then((mod) => mod.toast)
                         toast({
                             title: "Error",
                             description: "There was an error logging you out",
@@ -58,10 +60,13 @@ function AuthButtonWrapper({
                     if (!provider) throw new Error("Provider is required")
 
                     setIsLoading(true)
+
+                    const signIn = await import("next-auth/react").then((mod) => mod.signIn)
                     signIn(provider, signInOptions).then(() => {
                         setIsLoading(false)
-                    }).catch((error) => {
+                    }).catch(async (error) => {
                         setIsLoading(false)
+                        const toast = await import("@/components/ui/use-toast").then((mod) => mod.toast)
                         toast({
                             title: "Error",
                             description: error.message,

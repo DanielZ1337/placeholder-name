@@ -21,12 +21,14 @@ export default function GlobalError({
                         <h1 className="mb-2 text-center text-2xl font-bold text-secondary-foreground sm:text-left md:text-3xl">Page
                             not found</h1>
 
-                        <p className="mb-8 text-center text-muted-foreground/80 sm:text-left md:text-lg">The page you&apos;re
+                        <p className="mb-8 text-center text-muted-foreground/80 sm:text-left md:text-lg">The page
+                            you&apos;re
                             looking for doesn&apos;t exist.</p>
 
-                            <Button onClick={reset} variant={"light"} color={"secondary"} size={"lg"} className={"px-8 py-3"}>
-                                Go home
-                            </Button>
+                        <Button onClick={reset} variant={"light"} color={"secondary"} size={"lg"}
+                                className={"px-8 py-3"}>
+                            Go home
+                        </Button>
                     </div>
                     <div className="relative h-80 overflow-hidden rounded-lg bg-muted shadow-lg md:h-auto">
                         <Image src={_404} alt="Photo by @heydevn"

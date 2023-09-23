@@ -14,13 +14,13 @@ import {
     ScrollShadow
 } from "@nextui-org/react";
 import AccountDropdown from './account-dropdown';
-import { cn } from '@/lib/utils';
-import { useSession } from 'next-auth/react';
+import {cn} from '@/lib/utils';
+import {useSession} from 'next-auth/react';
 import ThemeSwitcher from './theme-switcher';
 import logo from '@/public/logo.svg';
-import { Image } from "@nextui-org/image";
-import { default as NextLink } from "next/link";
-import { usePathname } from "next/navigation";
+import {Image} from "@nextui-org/image";
+import {default as NextLink} from "next/link";
+import {usePathname} from "next/navigation";
 import LoginModal from "@/components/login/login-modal/login-modal";
 
 export default function Header() {
@@ -42,7 +42,7 @@ export default function Header() {
         }
     }, [])
 
-    const { data: session, status } = useSession()
+    const {data: session, status} = useSession()
 
     const menuItems = [
         {
@@ -66,7 +66,9 @@ export default function Header() {
     const pathname = usePathname()
 
     return (
-        <Navbar className={cn('backdrop-blur ease-in-out duration-200 transition-all', navbarShadow && "shadow-lg bg-background")} onMenuOpenChange={setIsMenuOpen}>
+        <Navbar
+            className={cn('backdrop-blur ease-in-out duration-200 transition-all', navbarShadow && "shadow-lg bg-background")}
+            onMenuOpenChange={setIsMenuOpen}>
             {status === "authenticated" && (
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -75,7 +77,7 @@ export default function Header() {
             )}
             <NavbarBrand>
                 <NextLink href={'/'} className={"flex items-center gap-2"}>
-                    <Image src={logo.src} alt="Logo" className="w-10 h-10" />
+                    <Image src={logo.src} alt="Logo" className="w-10 h-10"/>
                     <p className="font-bold text-inherit text-xl">SMLinks</p>
                 </NextLink>
             </NavbarBrand>
@@ -86,7 +88,7 @@ export default function Header() {
                         <NavbarItem isActive={pathname === item.href} key={`${item.href}-${index}`}>
                             <NextLink href={item.href}>
                                 <Link aria-current={isCurrentPage(pathname, item.href) && "page"}
-                                    color={isCurrentPage(pathname, item.href) ? "secondary" : "foreground"}>
+                                      color={isCurrentPage(pathname, item.href) ? "secondary" : "foreground"}>
                                     {item.name}
                                 </Link>
                             </NextLink>
@@ -95,12 +97,12 @@ export default function Header() {
             </NavbarContent>
 
             <NavbarContent as="div" justify="end">
-                <ThemeSwitcher />
+                <ThemeSwitcher/>
                 {status === "unauthenticated" && (
-                    <LoginModal />
+                    <LoginModal/>
                 )}
                 {status === "authenticated" && (
-                    <AccountDropdown />
+                    <AccountDropdown/>
                 )}
             </NavbarContent>
             <NavbarMenu className="sm:hidden w-full">

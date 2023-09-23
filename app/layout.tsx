@@ -2,7 +2,7 @@ import Providers from '@/components/providers'
 import './globals.css'
 import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
-import {cn} from '../lib/utils'
+import {cn} from '@/lib/utils'
 import {siteConfig} from "@/lib/site";
 import {Toaster} from "@/components/ui/toaster";
 import {Suspense} from "react";

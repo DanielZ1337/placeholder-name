@@ -1,5 +1,6 @@
 import React from "react";
-export default function MoonIcon({ ...props }) {
+
+export default function MoonIcon({...props}) {
     return <svg
         aria-hidden="true"
         focusable="false"

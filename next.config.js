@@ -3,10 +3,12 @@ const nextConfig = {
     experimental: {
         serverActions: true
     },
+    reactStrictMode: false,
     images: {
         domains: [
             'localhost',
-            'avatars.githubusercontent.com'
+            'avatars.githubusercontent.com',
+            'lh3.googleusercontent.com'
         ]
     }
 }

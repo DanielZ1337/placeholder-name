@@ -2,10 +2,12 @@
 
 import React from "react";
 import {Select, SelectItem} from "@nextui-org/react";
-import {sites} from "@/lib/link-site-providers";
+import {sites} from "@/types/link-providers";
 
 
-export default function LinkProviderSelector({setNewLinkProvider}: { setNewLinkProvider: React.Dispatch<React.SetStateAction<string>> }) {
+export default function LinkProviderSelector({setNewLinkProvider}: {
+    setNewLinkProvider: React.Dispatch<React.SetStateAction<string>>
+}) {
 
     return (
         <Select

@@ -47,19 +47,19 @@ export default function ShareLink({url, className, ...props}: {
                             <FaCheck className={"w-5 h-5"}/>
                         </motion.div>
                     )}
-                </AnimatePresence>
-                <AnimatePresence>
-                    {!isCopied && (
-                        <motion.div
-                            initial={{opacity: 0, scale: 0}}
-                            animate={{opacity: 1, scale: 1}}
-                            exit={{opacity: 0, scale: 0}}
-                            className={"absolute"}
-                        >
-                            <LinkIcon className={"w-5 h-5"}/>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                    </AnimatePresence>
+                    <AnimatePresence>
+                        {!isCopied && (
+                            <motion.div
+                                initial={{opacity: 0, scale: 0}}
+                                animate={{opacity: 1, scale: 1}}
+                                exit={{opacity: 0, scale: 0}}
+                                className={"absolute"}
+                            >
+                                <LinkIcon className={"w-5 h-5"}/>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </span>
             </Button>
         </CopyToClipboard>

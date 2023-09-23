@@ -26,8 +26,10 @@ export default function LoginModal() {
                                 </p>
                                 <div className="grid w-full items-center gap-4">
                                     {oAuthProviders.map((provider) => (
-                                        <AuthButton className={"py-6"} key={provider.provider} provider={provider.provider}
-                                                    icon={provider.icon} color={"secondary"} variant={"flat"}>Login with {provider.name}</AuthButton>
+                                        <AuthButton className={"py-6"} key={provider.provider}
+                                                    provider={provider.provider}
+                                                    icon={provider.icon} color={"secondary"} variant={"flat"}>Login
+                                            with {provider.name}</AuthButton>
                                     ))}
                                 </div>
                             </ModalBody>

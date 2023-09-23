@@ -4,6 +4,9 @@ import Link from "next/link";
 import {cn} from "@/lib/utils";
 import React, {useState} from "react";
 import {BsArrowRight} from "react-icons/bs";
+import UseClientGeolocation from "@/lib/hooks/client/useClientGeolocation";
+import useLinkAnalyticsQuery from "@/lib/hooks/client/useLinkAnalyticsQuery";
+
 
 function HEXtoHSL(hex: string) {
     let r = parseInt(hex.substring(1, 3), 16) / 255;
@@ -45,7 +48,8 @@ function shouldTextBeInverted(color: string) {
     return l > 70 || s < 30 || h > 200 && h < 300
 }
 
-export default function SocialMediaLink({href, color, icon, children, className, ...props}: {
+export default function SocialMediaLink({id, href, color, icon, children, className, ...props}: {
+    id: string
     href: string
     color?: string
     icon?: React.ReactElement
@@ -53,7 +57,16 @@ export default function SocialMediaLink({href, color, icon, children, className,
     className?: string
     props?: React.ComponentProps<typeof Link>
 }) {
-    const [isHover, setIsHover] = useState<boolean>()
+    const [isHover, setIsHover] = useState<boolean>(false)
+    const {data: geo, isLoading} = UseClientGeolocation()
+
+    const mutation = useLinkAnalyticsQuery({
+        geo,
+        id,
+        href
+    })
+
+    if (isLoading) return null
 
     return (
         <Link href={href}
@@ -67,13 +80,15 @@ export default function SocialMediaLink({href, color, icon, children, className,
               {...props}
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
+              onClick={() => mutation.mutate()}
         >
             <span className={'flex gap-2 items-center justify-center'}>
                 <span className={"w-6 h-6"}>{React.cloneElement(icon!, {height: '', width: ''})}<span
                     className={'sr-only'}>{children}</span></span>
                 <span className={"sm:text-lg text-sm lg:text-lg lg:font-medium xl:text-base"}>{children}</span>
             </span>
-            <BsArrowRight className={cn('w-6 h-6', isHover ? 'translate-x-1 transition-transform duration-200 ease-in-out' : 'translate-x-0 transition-transform duration-200 ease-in-out')}/>
+            <BsArrowRight
+                className={cn('w-6 h-6', isHover ? 'translate-x-1 transition-transform duration-200 ease-in-out' : 'translate-x-0 transition-transform duration-200 ease-in-out')}/>
         </Link>
     )
 }
