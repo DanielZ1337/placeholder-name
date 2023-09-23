@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/server'
+import {redisClient} from "@/lib/redis";
+import {User} from "next-auth";
 
 // Route segment config
 export const runtime = 'edge'
@@ -14,6 +16,7 @@ export const contentType = 'image/png'
 
 // Image generation
 export default async function Image({params: {id}}:{ params: { id: string } }) {
+    const user = await redisClient.get(`user:${id}`) as User
 
     return new ImageResponse(
         (
@@ -42,7 +45,7 @@ export default async function Image({params: {id}}:{ params: { id: string } }) {
                     <img
                         alt="Vercel"
                         height={200}
-                        src="data:image/svg+xml,%3Csvg width='116' height='100' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M57.5 0L115 100H0L57.5 0z' /%3E%3C/svg%3E"
+                        src={user.image!}
                         style={{ margin: '0 30px' }}
                         width={232}
                     />
@@ -59,7 +62,7 @@ export default async function Image({params: {id}}:{ params: { id: string } }) {
                         whiteSpace: 'pre-wrap',
                     }}
                 >
-                    {id}
+                    {user.name}
                 </div>
             </div>
         )
