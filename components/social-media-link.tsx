@@ -6,6 +6,7 @@ import React, {useState} from "react";
 import {BsArrowRight} from "react-icons/bs";
 import UseClientGeolocation from "@/lib/hooks/client/useClientGeolocation";
 import useLinkAnalyticsQuery from "@/lib/hooks/client/useLinkAnalyticsQuery";
+import {useCookieContext} from "@/components/cookie-provider";
 
 
 function HEXtoHSL(hex: string) {
@@ -66,6 +67,9 @@ export default function SocialMediaLink({id, href, color, icon, children, classN
         href
     })
 
+    const {getCookiePermissions} = useCookieContext()
+    const cookiePreferences = getCookiePermissions()
+
     if (isLoading) return null
 
     return (
@@ -80,7 +84,11 @@ export default function SocialMediaLink({id, href, color, icon, children, classN
               {...props}
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
-              onClick={() => mutation.mutate()}
+              onClick={() => {
+                  if (cookiePreferences?.analytics) {
+                      mutation.mutate()
+                  }
+              }}
         >
             <span className={'flex gap-2 items-center justify-center'}>
                 <span className={"w-6 h-6"}>{React.cloneElement(icon!, {height: '', width: ''})}<span

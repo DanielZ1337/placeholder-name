@@ -48,13 +48,6 @@ export default async function Page() {
                         </BigBox>
                     </div>
                 </div>
-                {JSON.stringify(analytics.analytics, null, 2)}
-                {JSON.stringify(analytics.analytics, null, 2)}
-                {JSON.stringify(analytics.analytics, null, 2)}
-                {JSON.stringify(analytics.analytics, null, 2)}
-                {JSON.stringify(analytics.analytics, null, 2)}
-                {JSON.stringify(analytics.analytics, null, 2)}
-                {JSON.stringify(analytics.analytics, null, 2)}
             </div>
         </ScrollShadowServer>
     )

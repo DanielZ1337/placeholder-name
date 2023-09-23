@@ -18,7 +18,7 @@ export default function LinkSiteSelector({setNewLinkSite, defaultSelected}: {
             label="Select a platform"
             placeholder="e.g Twitter"
             labelPlacement="outside"
-            className="max-w-xs"
+            className="max-w-md"
             color={"secondary"}
             onSelectionChange={(value) => {
                 setNewLinkSite((new Set(value)).values().next().value.toLowerCase())
