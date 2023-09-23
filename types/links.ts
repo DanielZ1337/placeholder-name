@@ -8,4 +8,4 @@ export type Links = {
 
 export const linkPrefix = 'link:'
 
-export const createLinkKey = (id: string) => `${linkPrefix}:${id}`
+export const createLinkKey = (id: string) => `${linkPrefix}${id}`

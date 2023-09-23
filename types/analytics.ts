@@ -9,5 +9,5 @@ export type Analytics = {
 export const linkAnalyticsPrefix = 'link-analytics:'
 export const visitAnalyticsPrefix = 'visit-analytics:'
 
-export const createLinkAnalyticsKey = (id: string, href: string) => `${linkAnalyticsPrefix}:${id}:${href}`
-export const createVisitAnalyticsKey = (id: string, href: string) => `${visitAnalyticsPrefix}:${id}:${href}`
+export const createLinkAnalyticsKey = (id: string, href: string) => `${linkAnalyticsPrefix}${id}:${href}`
+export const createVisitAnalyticsKey = (id: string, href: string) => `${visitAnalyticsPrefix}${id}:${href}`
