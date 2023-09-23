@@ -61,6 +61,7 @@ export default function SocialMediaLink({id, href, color, icon, children, classN
     const {data: geo, isLoading} = UseClientGeolocation()
 
     const mutation = useLinkAnalyticsQuery({
+        id,
         geo,
         href
     })

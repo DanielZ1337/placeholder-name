@@ -6,7 +6,7 @@ import {Analytics, createLinkAnalyticsKey} from "@/types/analytics";
 export async function POST(Request: NextRequest, Response: NextResponse) {
     if (!Request.body) return NextResponse.json({error: 'No body provided'}, {status: 400})
     const req = await Request.json()
-    const {id, href, date, geo} = req
+    const {id, href, date, geo} = req as Analytics
     if (!id || !href || !date || !geo) return NextResponse.json({error: 'Missing required fields'}, {status: 400})
 
 
@@ -22,6 +22,7 @@ export async function POST(Request: NextRequest, Response: NextResponse) {
         const {redisClient} = await import('@/lib/redis')
 
         const analyticsPayload = {
+            id,
             date,
             user_agent: Request.headers.get('user-agent') ?? undefined,
             geo,

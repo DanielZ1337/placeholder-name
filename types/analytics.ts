@@ -1,6 +1,7 @@
 import {GeolocationApiResponse} from "@/types/geolocation-api-response";
 
 export type Analytics = {
+    id: string
     date: number
     user_agent?: string
     href: string
