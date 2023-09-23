@@ -66,13 +66,21 @@ export async function addNewLink(formData: FormData) {
 
     const id = session.user.id
 
-    /*const data = JSON.parse(formData.get('payload') as string) as Links
-    const sites = data.map(entry => entry.site.toLowerCase())
-    const links = data.map(entry => entry.href.toLowerCase())
+    if (process.env.NODE_ENV === 'development') {
+        const data = JSON.parse(formData.get('payload') as string) as Links
+        const sites = data.map(entry => entry.site.toLowerCase())
+        const links = data.map(entry => entry.href.toLowerCase())
 
-    if (!sites || !links || !data || !data.length) {
-        throw new Error('Missing data')
-    }*/
+        if (!sites || !links || !data || !data.length) {
+            throw new Error('Missing data')
+        }
+
+        await redisClient.set(createLinkKey(id), JSON.stringify(data)).then(() => {
+            console.log('Links set')
+        })
+
+        return
+    }
 
     const site = (formData.get('site') as string).toLowerCase()
     const href = (formData.get('href') as string).toLowerCase()
@@ -85,8 +93,13 @@ export async function addNewLink(formData: FormData) {
         [site]: href
     }
 
-    await redisClient.set(createLinkKey(id), data).then(() => {
-        console.log('Links set')
+    const isExists = await redisClient.hexists(createLinkKey(id), site)
+    if (isExists) {
+        throw new Error('Link already exists')
+    }
+
+    await redisClient.hmset(createLinkKey(id), data).then(() => {
+        console.log('Added')
     })
 
     // revalidatePath(`/profile/${id}`)
