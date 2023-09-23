@@ -9,10 +9,19 @@ import {Link} from "@/types/links";
 
 export default function SitesForm({currentLinks}: { currentLinks: Link[] }) {
 
-    const [linksCount, setLinksCount] = React.useState(currentLinks.length || 1)
+    // const [linksCount, setLinksCount] = React.useState(currentLinks.length || 1)
+    if (!currentLinks || currentLinks.length === 0) {
+        return (
+            <div className={"flex flex-col items-center gap-2"}>
+                <h6 className={"text-shdcnmuted-shdcnforeground"}>No Links</h6>
+            </div>
+        )
+
+    }
     return (
         <>
-            <div className="flex flex-row gap-2">
+            {JSON.stringify(currentLinks)}
+            {/*<div className="flex flex-row gap-2">
                 <Button color={"success"} variant={"faded"} onClick={() => setLinksCount(linksCount + 1)}>
                     Add Link
                 </Button>
@@ -28,7 +37,7 @@ export default function SitesForm({currentLinks}: { currentLinks: Link[] }) {
                     </div>
                 ))}
                 <SaveButton/>
-            </form>
+            </form>*/}
         </>
     )
 }
