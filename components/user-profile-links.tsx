@@ -16,8 +16,9 @@ export default async function UserProfileLinks({id}: { id: string }) {
     return (
         <div className={"flex gap-2 flex-col"}>
             {links && Object.entries(links).map(([link, site]) => {
-                if (!site) return (<></>)
-                const findIcon = Object.values(sites).find(s => s.name.toLowerCase() === site.site.toLowerCase())!
+                if (!site || !site.site || !site.href) return null
+                const findIcon = Object.values(sites).find(s => s.name.toLowerCase() === site.site.toLowerCase())
+                if (!findIcon) return null
                 return (
                     <SocialMediaLink id={id} key={site.id} href={site.href} icon={<findIcon.icon/>} color={findIcon.color}>
                         {site.site.toLowerCase().at(0)!.toUpperCase() + site?.site.toLowerCase().slice(1) + " "}
