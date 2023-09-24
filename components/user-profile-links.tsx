@@ -5,7 +5,7 @@ import getLinksByProfileID from "@/lib/hooks/server/getLinksByProfileID";
 
 export default async function UserProfileLinks({id}: { id: string }) {
     const links = await getLinksByProfileID(id)
-    if (!links) {
+    if (!links || Object.keys(links).length === 0) {
         return (
             <div className={"flex flex-col items-center gap-2"}>
                 <h6 className={"text-shdcnmuted-shdcnforeground"}>No Links</h6>

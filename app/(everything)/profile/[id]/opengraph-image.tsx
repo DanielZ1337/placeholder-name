@@ -32,6 +32,9 @@ export default async function Image({params: {id}}:{ params: { id: string } }) {
                     justifyContent: 'center',
                     flexDirection: 'column',
                     flexWrap: 'nowrap',
+                    padding: '30px',
+                    borderRadius: '10px',
+                    boxShadow: '0 0 10px 0 rgba(0,0,0,0.3)',
                 }}
             >
                 <div
@@ -44,10 +47,10 @@ export default async function Image({params: {id}}:{ params: { id: string } }) {
                 >
                     <img
                         alt="Vercel"
-                        height={200}
+                        height={250}
                         src={user.image!}
-                        style={{ margin: '0 30px' }}
-                        width={232}
+                        style={{ margin: '0 30px', borderRadius: '50%', border: '5px solid white', boxShadow: '0 0 10px 0 rgba(0,0,0,0.3)',  objectFit: 'contain' }}
+                        width={250}
                     />
                 </div>
                 <div
