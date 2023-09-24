@@ -6,6 +6,7 @@ import {Avatar} from "@nextui-org/avatar";
 import UserProfileLinks from "@/components/user-profile-links";
 import ShareLink from "@/components/share-link";
 import {siteConfig} from "@/lib/site";
+import {redirect} from "next/navigation";
 
 /*export async function generateStaticParams() {
     const newClient = Redis.fromEnv({
@@ -21,7 +22,7 @@ export default async function Page({params}: { params: { id: string } }) {
     const user = await redisClient.get(`user:${params.id}`) as User
 
     if (!user) {
-        throw new Error('User Not Found')
+        redirect('/404')
     }
 
     return (
