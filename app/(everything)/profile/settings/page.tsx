@@ -2,7 +2,7 @@
 
 import {redirect} from "next/navigation";
 import {Avatar} from "@nextui-org/avatar";
-import {useSession} from "next-auth/react";
+import {signIn, signOut, useSession} from "next-auth/react";
 import {Divider} from "@nextui-org/divider";
 import ScrollShadowServer from "@/components/ui/ScrollShadowServer";
 import {useIntersectionObserver} from "@uidotdev/usehooks"
@@ -10,13 +10,14 @@ import React, {SetStateAction, useEffect, useState} from "react";
 import {cn} from "@/lib/utils";
 import {Button, DividerProps, Switch} from "@nextui-org/react";
 import {UploadDropzone} from "@/lib/uploadthing";
-import {AlertTriangle, ComputerIcon, CookieIcon, MoonIcon, PencilIcon, SettingsIcon, SunIcon, User} from "lucide-react";
+import {AlertTriangle, ComputerIcon, CookieIcon, MoonIcon, PencilIcon, SettingsIcon, SunIcon, User as UserIcon} from "lucide-react";
 import {useTheme} from "next-themes";
 import {DefaultCookiePermissions, useCookieContext} from "@/components/cookie-provider";
 import {Spinner} from "@nextui-org/spinner";
+import type {User} from 'next-auth'
 
 export default function Page() {
-    const {data: session,status} = useSession()
+    const {data: session,status, update} = useSession()
     const [currentSection, setCurrentSection] = useState<string>('')
     const rootRef = React.useRef<HTMLDivElement>(null)
     const navRef = React.useRef<HTMLDivElement>(null)
@@ -74,6 +75,8 @@ export default function Page() {
         redirect('/auth/signin')
     }
 
+    console.log(session?.user)
+
     return (
         <div className={"h-full w-full"}>
             <div className={"flex flex-col items-center"}>
@@ -96,7 +99,7 @@ export default function Page() {
                     <nav
                         className={"flex md:flex-col flex-row gap-4 md:gap-2 w-full md:w-1/6 px-2 md:px-0 overflow-x-auto md:overflow-y-auto"}
                         ref={navRef}>
-                        <SettingsNavTitle title={"Profile"} icon={<User/>}  {...SettingsNavTitleSettings}/>
+                        <SettingsNavTitle title={"Profile"} icon={<UserIcon/>}  {...SettingsNavTitleSettings}/>
                         <Divider {...navDividerSettings}/>
                         <SettingsNavTitle title={"Preferences"} icon={<SettingsIcon/>} {...SettingsNavTitleSettings}/>
                         <Divider {...navDividerSettings}/>
@@ -137,14 +140,23 @@ export default function Page() {
                                     </span>
                                 </div>
                                 <UploadDropzone
+                                    className={"cursor-pointer border-dashed border-2 border-foreground-600"}
                                     appearance={{
                                         button: "bg-foreground-100 text-foreground hover:bg-foreground-200 hover:text-foreground px-4 py-2 rounded-md transition-all duration-200",
                                     }}
                                     endpoint="imageUploader"
                                     onClientUploadComplete={(res) => {
-                                        // Do something with the response
+                                                // Do something with the response
                                         console.log("Files: ", res);
                                         alert("Upload Completed");
+                                        update({image: res?.[0].fileUrl}).then(() => {
+                                            update().then(() => {
+                                                alert('Profile picture updated! You will be logged out to refresh the changes for you.')
+                                                signOut().then(() => {
+                                                    signIn()
+                                                })
+                                            })
+                                        })
                                     }}
                                     onUploadError={(error: Error) => {
                                         // Do something with the error.

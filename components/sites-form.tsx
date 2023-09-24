@@ -15,11 +15,14 @@ export default function SitesForm({currentLinks}: { currentLinks: Link[] | null 
     return (
         <>
             <div className="flex flex-row gap-2">
-                <Button color={"success"} variant={"faded"} onClick={() => setLinksCount(linksCount + 1)}>
+                <Button color={"success"} variant={"faded"} onClick={() => setLinksCount((prevState) => prevState + 1)}>
                     Add Link
                 </Button>
-                <Button color={"danger"} variant={"faded"} onClick={() => setLinksCount(linksCount - 1)}>
+                <Button color={"danger"} variant={"faded"} onClick={() => setLinksCount((prevState) => prevState - 1)}>
                     Remove Link
+                </Button>
+                <Button color={"warning"} variant={"faded"} onClick={() => setLinksCount(1)}>
+                    Reset
                 </Button>
             </div>
             <form className="flex flex-col gap-2" action={addNewLink}>
