@@ -25,7 +25,8 @@ export default function LinkSiteSelector({setNewLinkSite, defaultSelected}: {
             }}
             {...(defaultSelected ? {defaultSelectedKeys: [findDefaultSelectedObject.name]} : {})}
             renderValue={(value) => {
-                const site = value[0].data!
+                const site = value[0].data
+                if (!site) return null
                 return (
                     <div key={site.name} className="flex items-center gap-2">
                         <site.icon className="w-5 h-5"/>
