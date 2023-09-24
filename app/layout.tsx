@@ -7,6 +7,9 @@ import {siteConfig} from "@/lib/site";
 import {Toaster} from "@/components/ui/toaster";
 import {Suspense} from "react";
 import {Spinner} from "@nextui-org/spinner";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import {ourFileRouter} from "@/app/api/uploadthing/core";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -117,6 +120,15 @@ export default function RootLayout({
         <body className={cn(inter.className, 'min-h-[100dvh] flex-1')}>
         <Providers>
             <Suspense fallback={<Spinner size={"lg"} color={"current"} className={"absolute inset-0 m-auto"}/>}>
+                <NextSSRPlugin
+                    /**
+                     * The `extractRouterConfig` will extract **only** the route configs
+                     * from the router to prevent additional information from being
+                     * leaked to the client. The data passed to the client is the same
+                     * as if you were to fetch `/api/uploadthing` directly.
+                     */
+                    routerConfig={extractRouterConfig(ourFileRouter)}
+                />
                 {children}
             </Suspense>
             <Toaster/>

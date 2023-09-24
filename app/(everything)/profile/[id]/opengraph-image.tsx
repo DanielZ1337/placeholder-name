@@ -18,6 +18,8 @@ export const contentType = 'image/png'
 export default async function Image({params: {id}}:{ params: { id: string } }) {
     const user = await redisClient.get(`user:${id}`) as User
 
+    const image = user.image ? user.image : ''
+
     return new ImageResponse(
         (
             <div
@@ -48,7 +50,7 @@ export default async function Image({params: {id}}:{ params: { id: string } }) {
                     <img
                         alt="Vercel"
                         height={250}
-                        src={user.image!}
+                        src={image}
                         style={{ margin: '0 30px', borderRadius: '50%', border: '5px solid white', boxShadow: '0 0 10px 0 rgba(0,0,0,0.3)',  objectFit: 'contain' }}
                         width={250}
                     />

@@ -7,7 +7,9 @@ import UserProfileLinks from "@/components/user-profile-links";
 import ShareLink from "@/components/share-link";
 import {siteConfig} from "@/lib/site";
 import {redirect} from "next/navigation";
-import { notFound } from 'next/navigation'
+import {notFound} from 'next/navigation'
+import CustomAvatar from "@/components/ui/CustomAvatar";
+import PlaceholderImage from "@/components/icons/placeholder-image";
 
 /*export async function generateStaticParams() {
     const newClient = Redis.fromEnv({
@@ -22,6 +24,8 @@ import { notFound } from 'next/navigation'
 export default async function Page({params}: { params: { id: string } }) {
     const user = await redisClient.get(`user:${params.id}`) as User
 
+    const name = user.name ? user.name : 'User'
+
     if (!user) {
         notFound()
     }
@@ -31,9 +35,14 @@ export default async function Page({params}: { params: { id: string } }) {
             <Card
                 className={"px-4 py-10 flex flex-col items-center gap-2 lg:w-1/3 2xl:w-1/4 md:w-1/2 w-full lg:px-10 md:px-5 text-center relative"}>
                 <ShareLink className={"absolute top-2 right-2"} url={`${siteConfig.url}profile/${params.id}`}/>
-                <Avatar src={user.image!}
-                        className={"h-auto xl:w-1/5 md:w-1/5 w-1/4 lg:w-1/3 border-[4px] border-secondary mb-[21px]"}
-                        alt={user.name!}/>
+                {user.image ? (
+                    <Avatar name={name} src={user.image}
+                            className={"h-auto xl:w-1/5 md:w-1/5 w-1/4 lg:w-1/3 border-[4px] border-secondary mb-[21px]"}
+                            alt={name}/>
+                ) : (
+                    <PlaceholderImage
+                        className={"p-2 rounded-full h-auto xl:w-1/5 md:w-1/5 w-1/4 lg:w-1/3 border-[4px] border-secondary mb-[21px]"}/>
+                )}
                 <h1 className={"lg:text-2xl text-xl font-bold text-foreground text-center"}>{user.name}</h1>
                 <h2 className={"text-center lg:text-lg text-base font-medium text-shdcnmuted-shdcnforeground overflow-ellipsis break-all mb-4"}>{user.email}</h2>
                 <Suspense fallback={<div>Loading...</div>}>

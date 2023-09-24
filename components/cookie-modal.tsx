@@ -30,7 +30,7 @@ export default function CookieModal() {
             isKeyboardDismissDisabled={!!cookies}
             onClose={() => {
                 setCookiePermissions({
-                    necessary: true,
+                    necessary: DefaultCookiePermissions.necessary,
                     preferences: preferences,
                     analytics: analytics
                 })

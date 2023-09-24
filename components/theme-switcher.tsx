@@ -6,7 +6,7 @@ import {useTheme} from "next-themes";
 
 export default function ThemeSwitcher() {
     const [mounted, setMounted] = React.useState(false)
-    const {theme, setTheme} = useTheme()
+    const {resolvedTheme, theme, setTheme} = useTheme()
 
     React.useEffect(() => {
         setMounted(true)
@@ -16,7 +16,7 @@ export default function ThemeSwitcher() {
 
     return (
         <Switch
-            isSelected={theme === "dark"}
+            isSelected={resolvedTheme === "dark"}
             onValueChange={() => setTheme(theme === "dark" ? "light" : "dark")}
             size="lg"
             color="secondary"
