@@ -6,9 +6,7 @@ import {Avatar} from "@nextui-org/avatar";
 import UserProfileLinks from "@/components/user-profile-links";
 import ShareLink from "@/components/share-link";
 import {siteConfig} from "@/lib/site";
-import {redirect} from "next/navigation";
-import {notFound} from 'next/navigation'
-import CustomAvatar from "@/components/ui/CustomAvatar";
+import {notFound} from "next/navigation";
 import PlaceholderImage from "@/components/icons/placeholder-image";
 
 /*export async function generateStaticParams() {

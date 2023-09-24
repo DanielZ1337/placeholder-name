@@ -6,7 +6,8 @@ import {Button} from "@nextui-org/react";
 
 export default function NotFound() {
     return (
-        <div className={"w-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 items-center -mt-20"}>
+        <div
+            className={"w-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 items-center -mt-20"}>
             <p className="mb-10 text-base font-semibold uppercase text-primary md:text-xl">Error 404</p>
             <h1 className="mb-2 text-center text-4xl font-bold text-secondary-foreground sm:text-left md:text-5xl">Page
                 not found</h1>

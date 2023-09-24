@@ -35,10 +35,11 @@ export default async function Page() {
     return (
         <ScrollShadowServer hideScrollBar={false} className="h-full max-h-screen border-none">
             <div className={"flex flex-col items-center"}>
-                <div className={"flex flex-row gap-2 md:gap-6 w-full justify-between items-center mb-4 md:justify-end p-4"}>
+                <div
+                    className={"flex flex-row gap-2 md:gap-6 w-full justify-between items-center mb-4 md:justify-end p-4"}>
                     <div className={"flex flex-col gap-2"}>
-                    <h1 className={"text-2xl font-bold text-foreground"}>Analytics for {session.user.name}</h1>
-                    <h2>{session.user.email}</h2>
+                        <h1 className={"text-2xl font-bold text-foreground"}>Analytics for {session.user.name}</h1>
+                        <h2>{session.user.email}</h2>
                     </div>
                     <Avatar src={session.user.image!} size={"lg"} alt="Profile Image"/>
                 </div>

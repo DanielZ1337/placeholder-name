@@ -10,14 +10,10 @@ import React, {SetStateAction, useEffect, useState} from "react";
 import {cn} from "@/lib/utils";
 import {Button, DividerProps, Switch} from "@nextui-org/react";
 import {UploadDropzone} from "@/lib/uploadthing";
-import {AlertTriangle, CookieIcon, PencilIcon, SettingsIcon, User} from "lucide-react";
+import {AlertTriangle, ComputerIcon, CookieIcon, MoonIcon, PencilIcon, SettingsIcon, SunIcon, User} from "lucide-react";
 import {useTheme} from "next-themes";
-import {SunIcon} from "lucide-react";
-import {MoonIcon} from "lucide-react";
-import {ComputerIcon} from "lucide-react";
 import {DefaultCookiePermissions, useCookieContext} from "@/components/cookie-provider";
 import {Spinner} from "@nextui-org/spinner";
-import {ImProfile} from "react-icons/im";
 
 export default function Page() {
     const {data: session} = useSession()
@@ -102,7 +98,7 @@ export default function Page() {
                         <Divider {...navDividerSettings}/>
                         <SettingsNavTitle title={"Cookie Settings"} icon={<CookieIcon/>} {...SettingsNavTitleSettings}/>
                         <Divider {...navDividerSettings}/>
-                        <SettingsNavTitle title={"Danger Zone"} icon={<AlertTriangle />} {...SettingsNavTitleSettings}/>
+                        <SettingsNavTitle title={"Danger Zone"} icon={<AlertTriangle/>} {...SettingsNavTitleSettings}/>
                     </nav>
                     <Divider orientation={"vertical"} className={"hidden md:block h-[55vh]"}/>
                     <ScrollShadowServer hideScrollBar
@@ -118,7 +114,8 @@ export default function Page() {
                                 </div>
                                 <div className={"flex flex-col gap-2"}>
                                     <h6 className={"text-shdcnmuted-shdcnforeground"}>Name</h6>
-                                    <span className={"inline-flex items-center py-1 rounded-md text-sm font-medium bg-foreground-100 text-foreground"}>
+                                    <span
+                                        className={"inline-flex items-center py-1 rounded-md text-sm font-medium bg-foreground-100 text-foreground"}>
                                         <h1 className={"text-foreground"}>{session.user.name}</h1>
                                         <div className={"ml-2 p-2 rounded-full hover:bg-foreground-200 cursor-pointer"}>
                                             <PencilIcon className={"w-4 h-4"}/>
@@ -127,7 +124,8 @@ export default function Page() {
                                 </div>
                                 <div className={"flex flex-col gap-2"}>
                                     <h6 className={"text-shdcnmuted-shdcnforeground"}>Email</h6>
-                                    <span className={"inline-flex items-center py-1 rounded-md text-sm font-medium bg-foreground-100 text-foreground"}>
+                                    <span
+                                        className={"inline-flex items-center py-1 rounded-md text-sm font-medium bg-foreground-100 text-foreground"}>
                                         <h1 className={"text-foreground"}>{session.user.email}</h1>
                                         <div className={"ml-2 p-2 rounded-full hover:bg-foreground-200 cursor-pointer"}>
                                             <PencilIcon className={"w-4 h-4"}/>
@@ -164,7 +162,7 @@ export default function Page() {
                                             variant={"flat"}
                                             radius={"sm"}
                                             size={"lg"}
-                                            >
+                                        >
                                             <SunIcon className={"w-6 h-6 text-foreground"}/>
                                         </Button>
                                         <Button
@@ -175,7 +173,7 @@ export default function Page() {
                                             variant={"flat"}
                                             radius={"sm"}
                                             size={"lg"}
-                                            >
+                                        >
                                             <MoonIcon className={"w-6 h-6 text-foreground"}/>
                                         </Button>
                                         <Button
@@ -186,7 +184,7 @@ export default function Page() {
                                             variant={"flat"}
                                             radius={"sm"}
                                             size={"lg"}
-                                            >
+                                        >
                                             <ComputerIcon className={"w-6 h-6 text-foreground"}/>
                                         </Button>
                                     </div>
@@ -210,7 +208,8 @@ export default function Page() {
                                                     functions like page navigation and access to secure areas of the
                                                     website. The website cannot function properly without these cookies.
                                                 </p>
-                                                <Switch size={isMobile ? "md" : "lg"} color={"secondary"} isReadOnly defaultSelected/>
+                                                <Switch size={isMobile ? "md" : "lg"} color={"secondary"} isReadOnly
+                                                        defaultSelected/>
                                             </div>
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
@@ -221,7 +220,8 @@ export default function Page() {
                                                     changes the way the website behaves or looks, like your preferred
                                                     language or the region that you are in.
                                                 </p>
-                                                <Switch size={isMobile ? "md" : "lg"} color={"secondary"} onValueChange={setPreferences}
+                                                <Switch size={isMobile ? "md" : "lg"} color={"secondary"}
+                                                        onValueChange={setPreferences}
                                                         defaultSelected={preferences}/>
                                             </div>
                                         </div>
@@ -233,7 +233,8 @@ export default function Page() {
                                                     interact with websites by collecting and reporting information
                                                     anonymously.
                                                 </p>
-                                                <Switch size={isMobile ? "md" : "lg"} color={"secondary"} onValueChange={setAnalytics}
+                                                <Switch size={isMobile ? "md" : "lg"} color={"secondary"}
+                                                        onValueChange={setAnalytics}
                                                         defaultSelected={analytics}/>
                                             </div>
                                         </div>

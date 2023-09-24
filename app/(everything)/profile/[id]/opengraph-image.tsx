@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/server'
+import {ImageResponse} from 'next/server'
 import {redisClient} from "@/lib/redis";
 import {User} from "next-auth";
 
@@ -15,7 +15,7 @@ export const size = {
 export const contentType = 'image/png'
 
 // Image generation
-export default async function Image({params: {id}}:{ params: { id: string } }) {
+export default async function Image({params: {id}}: { params: { id: string } }) {
     const user = await redisClient.get(`user:${id}`) as User
 
     const image = user.image ? user.image : ''
@@ -51,7 +51,13 @@ export default async function Image({params: {id}}:{ params: { id: string } }) {
                         alt="Vercel"
                         height={250}
                         src={image}
-                        style={{ margin: '0 30px', borderRadius: '50%', border: '5px solid white', boxShadow: '0 0 10px 0 rgba(0,0,0,0.3)',  objectFit: 'contain' }}
+                        style={{
+                            margin: '0 30px',
+                            borderRadius: '50%',
+                            border: '5px solid white',
+                            boxShadow: '0 0 10px 0 rgba(0,0,0,0.3)',
+                            objectFit: 'contain'
+                        }}
                         width={250}
                     />
                 </div>
