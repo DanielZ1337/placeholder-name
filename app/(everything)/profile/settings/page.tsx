@@ -16,7 +16,7 @@ import {DefaultCookiePermissions, useCookieContext} from "@/components/cookie-pr
 import {Spinner} from "@nextui-org/spinner";
 
 export default function Page() {
-    const {data: session} = useSession()
+    const {data: session,status} = useSession()
     const [currentSection, setCurrentSection] = useState<string>('')
     const rootRef = React.useRef<HTMLDivElement>(null)
     const navRef = React.useRef<HTMLDivElement>(null)
@@ -64,24 +64,28 @@ export default function Page() {
             analytics: analytics
         })
         saveCookiePermissions()
-    }, [analytics, preferences])
+    }, [analytics, preferences, saveCookiePermissions, setCookiePermissions])
 
-    if (!session) {
+    if (status === 'loading') return (
+        <Spinner size={"lg"} color={"current"} className={"absolute inset-0 m-auto"}/>
+    )
+
+    if (!session && status === 'unauthenticated') {
         redirect('/auth/signin')
     }
 
     return (
         <div className={"h-full w-full"}>
-            {/*<div className={"flex flex-col items-center"}>
+            <div className={"flex flex-col items-center"}>
                 <div
                     className={"flex flex-row gap-2 md:gap-6 w-full justify-between items-center mb-4 md:justify-end p-4"}>
                     <div className={"flex flex-col gap-2"}>
-                        <h1 className={"text-2xl font-bold text-foreground"}>Settings for {session.user.name}</h1>
-                        <h2 className={"text-shdcnmuted-shdcnforeground"}>{session.user.email}</h2>
+                        <h1 className={"text-2xl font-bold text-foreground"}>Settings for {session?.user.name}</h1>
+                        <h2 className={"text-shdcnmuted-shdcnforeground"}>{session?.user.email}</h2>
                     </div>
-                    <Avatar src={session.user.image!}
+                    <Avatar src={session?.user.image!}
                             className={"border-[4px] border-secondary h-auto xl:w-[100px] md:w-[100px] w-[80px] lg:w-[100px]"}
-                            alt={session.user.name!}/>
+                            alt={session?.user.name!}/>
                 </div>
             </div>
             <div className={"flex flex-col gap-4 items-center w-full h-full p-4 md:p-12 bg-foreground-50 rounded-xl"}>
@@ -108,15 +112,15 @@ export default function Page() {
                             <div className={"flex flex-col gap-4 w-full"}>
                                 <div className={"flex flex-col gap-2"}>
                                     <h6 className={"text-shdcnmuted-shdcnforeground"}>Profile Picture</h6>
-                                    <Avatar src={session.user.image!}
+                                    <Avatar src={session?.user.image!}
                                             className={"border-[4px] border-secondary h-auto xl:w-[100px] md:w-[100px] w-[80px] lg:w-[100px]"}
-                                            alt={session.user.name!}/>
+                                            alt={session?.user.name!}/>
                                 </div>
                                 <div className={"flex flex-col gap-2"}>
                                     <h6 className={"text-shdcnmuted-shdcnforeground"}>Name</h6>
                                     <span
                                         className={"inline-flex items-center py-1 rounded-md text-sm font-medium bg-foreground-100 text-foreground"}>
-                                        <h1 className={"text-foreground"}>{session.user.name}</h1>
+                                        <h1 className={"text-foreground"}>{session?.user.name}</h1>
                                         <div className={"ml-2 p-2 rounded-full hover:bg-foreground-200 cursor-pointer"}>
                                             <PencilIcon className={"w-4 h-4"}/>
                                         </div>
@@ -126,7 +130,7 @@ export default function Page() {
                                     <h6 className={"text-shdcnmuted-shdcnforeground"}>Email</h6>
                                     <span
                                         className={"inline-flex items-center py-1 rounded-md text-sm font-medium bg-foreground-100 text-foreground"}>
-                                        <h1 className={"text-foreground"}>{session.user.email}</h1>
+                                        <h1 className={"text-foreground"}>{session?.user.email}</h1>
                                         <div className={"ml-2 p-2 rounded-full hover:bg-foreground-200 cursor-pointer"}>
                                             <PencilIcon className={"w-4 h-4"}/>
                                         </div>
@@ -280,7 +284,7 @@ export default function Page() {
                         </SettingsCardSection>
                     </ScrollShadowServer>
                 </div>
-            </div>*/}
+            </div>
         </div>
     )
 }
@@ -329,7 +333,7 @@ function SettingsNavTitle({currentSection, title, navbarRef, rootRef, isMobile, 
                 behavior: 'smooth'
             })
         }
-    }, [currentSection])
+    }, [currentSection, navbarRef, title])
 
     return (
         <h6
