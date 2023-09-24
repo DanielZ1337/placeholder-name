@@ -81,6 +81,18 @@ export async function addNewLink(formData: FormData) {
         href: links[id],
     })) satisfies Link[]
 
+    // delete all fields in the array where site or href is empty
+    data.map((item, id) => {
+        if (!item.site || !item.href) {
+            data.splice(id, 1)
+        }
+    })
+
+    // change the ids of the array to the index of the array
+    data.map((item, id) => {
+        item.id = id
+    })
+
     await redisClient.set(createLinkKey(id), JSON.stringify(data)).then(() => {
         console.log('Links set')
     })

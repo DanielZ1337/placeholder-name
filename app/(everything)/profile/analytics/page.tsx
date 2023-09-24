@@ -5,7 +5,7 @@ import getAnalytics from "@/lib/hooks/server/getAnalytics";
 import {Avatar} from "@nextui-org/avatar";
 import BigBox from "@/components/analytics/big-box";
 import ScrollShadowServer from "@/components/ui/ScrollShadowServer";
-import WeekBarChart from "@/components/WeekBarChart";
+import WeekBarChart from "@/components/week-bar-chart";
 import {createLinkAnalyticsKey, createVisitAnalyticsKey} from "@/types/analytics";
 // import {Input} from "@nextui-org/react";
 
