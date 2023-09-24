@@ -72,7 +72,7 @@ export default function Page() {
 
     return (
         <div className={"h-full w-full"}>
-            <div className={"flex flex-col items-center"}>
+            {/*<div className={"flex flex-col items-center"}>
                 <div
                     className={"flex flex-row gap-2 md:gap-6 w-full justify-between items-center mb-4 md:justify-end p-4"}>
                     <div className={"flex flex-col gap-2"}>
@@ -280,7 +280,7 @@ export default function Page() {
                         </SettingsCardSection>
                     </ScrollShadowServer>
                 </div>
-            </div>
+            </div>*/}
         </div>
     )
 }
