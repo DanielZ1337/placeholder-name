@@ -14,7 +14,6 @@ export async function POST(Request: NextRequest, Response: NextResponse) {
     if (!session) return NextResponse.json({error: 'Not authenticated'}, {status: 401})
     if (!session.user) return NextResponse.json({error: 'No user found'}, {status: 401})
     if (!session.user.id) return NextResponse.json({error: 'No user id found'}, {status: 401})
-    if (session.user.id !== id) return NextResponse.json({error: 'Not authorized'}, {status: 403})
 
     const linkAnalyticsKey = createLinkAnalyticsKey(id, href)
 
